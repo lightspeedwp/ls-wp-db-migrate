@@ -4,7 +4,7 @@ Configuration and workflows for GitHub-specific features.
 
 ## Structure
 
-````bash
+```bash
 .github/
 ├── README.md                     # This file
 ├── labeler.yml                  # Auto-labeling configuration
