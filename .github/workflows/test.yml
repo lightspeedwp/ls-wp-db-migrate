@@ -63,7 +63,7 @@ jobs:
 
       - name: Lint shell scripts
         run: |
-          shellcheck skill/scripts/*.sh || true
+          shellcheck scripts/*.sh || true
 
       - name: Check JSON files
         run: npm run test -- --detectOpenHandles

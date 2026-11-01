@@ -30,7 +30,7 @@ jobs:
 
       - name: Lint shell scripts
         run: |
-          for file in skill/scripts/*.sh; do
+          for file in scripts/*.sh; do
             echo "Checking $file"
             shellcheck "$file" || true
           done

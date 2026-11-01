@@ -118,7 +118,7 @@ Configure Claude agents for {purpose}.
 ## Related Resources
 
 - [Main README](../../README.md) — Project overview
-- [skill/SKILL.md](../SKILL.md) — Complete skill documentation
+- [SKILL.md](../SKILL.md) — Complete skill documentation
 - [Installation Guide](../../docs/INSTALLATION.md) — Setup instructions
 ```bash
 ```bash

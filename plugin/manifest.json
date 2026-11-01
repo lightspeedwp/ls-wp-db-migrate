@@ -6,8 +6,8 @@
   "version": "1.0.0",
   "author": "Ash Shaw",
   "author_email": "ashley@lightspeedwp.agency",
-  "homepage": "https://github.com/lightspeedwp/thisonetimeonacid",
-  "repository": "https://github.com/lightspeedwp/thisonetimeonacid",
+  "homepage": "https://github.com/lightspeedwp/ls-wp-db-migrate",
+  "repository": "https://github.com/lightspeedwp/ls-wp-db-migrate",
   "keywords": [
     "wordpress",
     "database",
@@ -21,9 +21,9 @@
   "skills": [
     {
       "id": "wp-db-migrate",
-      "path": "skills/wp-db-migrate",
+      "path": ".",
       "name": "WordPress Database Migration",
-      "description": "Migrate WordPress databases from MySQL/MariaDB to SQLite Studio with sanitization, safe import, URL replacement, and validation"
+      "description": "Parent skill routing to focused WordPress Studio migration sub-skills."
     }
   ],
   "commands": [
@@ -41,8 +41,14 @@
     "start-server": "scripts/start-server.sh"
   },
   "requirements": {
-    "cli": ["studio", "wp"],
-    "features": ["bash", "database-access"]
+    "cli": [
+      "studio",
+      "wp"
+    ],
+    "features": [
+      "bash",
+      "database-access"
+    ]
   },
   "license": "MIT"
 }

@@ -123,7 +123,7 @@ Example:
 
 ```bash
 @test "my-script.sh validates input correctly" {
-  run ./skill/scripts/my-script.sh invalid-arg
+  run ./scripts/my-script.sh invalid-arg
   [ "$status" -ne 0 ]
   [[ "$output" == *"Error"* ]]
 }
@@ -140,7 +140,7 @@ which bats      # Verify location
 ### Test Fails: "command not found"
 Ensure scripts are executable:
 ```bash
-chmod +x skill/scripts/*.sh
+chmod +x scripts/*.sh
 ```bash
 
 ### Mock Fixture Issues
@@ -153,5 +153,5 @@ Tests run on Bash 3.2+ (tested on macOS and Linux). This ensures compatibility a
 ## Related Documentation
 
 - [Testing Guide](../docs/TESTING.md) — Complete testing overview
-- [Scripts Guide](../skill/scripts/README.md) — Script reference
+- [Scripts Guide](../scripts/README.md) — Script reference
 - [BATS Official Docs](https://github.com/bats-core/bats-core) — BATS documentation

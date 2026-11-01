@@ -5,7 +5,7 @@
 
 # Setup: Run before each test
 setup() {
-  export SCRIPT_DIR="$(cd "$(dirname "$BATS_TEST_FILENAME")" && pwd)/../skill/scripts"
+  export SCRIPT_DIR="$(cd "$(dirname "$BATS_TEST_FILENAME")" && pwd)/../scripts"
   export TEST_TEMP_DIR="$(mktemp -d)"
   export WP_STUDIO_SITE="$TEST_TEMP_DIR/test-site"
 

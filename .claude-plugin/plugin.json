@@ -1,38 +1,14 @@
 {
-  "$schema": "https://raw.githubusercontent.com/hesreallyhim/claude-code-json-schema/refs/heads/main/schemas/plugin.schema.json",
   "name": "wp-db-migrate",
   "version": "1.1.0",
-  "description": "Migrate WordPress databases from MySQL/MariaDB to SQLite in WordPress Studio. Handles sanitization, safe import with backup + rollback, automatic or manual URL replacement with dry-run verification, and post-import validation.",
+  "description": "Prepare WordPress MySQL/MariaDB exports for local WordPress Studio, with focused preflight, sanitisation, backup/import, URL verification and recovery skills.",
   "author": {
     "name": "Ash Shaw",
     "email": "ashley@lightspeedwp.agency"
   },
-  "repository": "https://github.com/lightspeedwp/wp-db-migrate",
-  "homepage": "https://github.com/lightspeedwp/wp-db-migrate",
+  "repository": "https://github.com/lightspeedwp/ls-wp-db-migrate",
+  "homepage": "https://github.com/lightspeedwp/ls-wp-db-migrate",
   "skills": [
-    "./skill/SKILL.md"
-  ],
-  "scripts": {
-    "preflight": "./skill/scripts/preflight-check.sh",
-    "migrate": "./skill/scripts/migrate-recovery.sh",
-    "migrate:enhanced": "./skill/scripts/migrate-recovery-enhanced.sh",
-    "verify": "./skill/scripts/verify-import.sh",
-    "urls": "./skill/scripts/replace-urls.sh",
-    "start": "./skill/scripts/start-server.sh"
-  },
-  "requirements": {
-    "cli": [
-      "studio",
-      "wp",
-      "bash",
-      "grep",
-      "sed"
-    ]
-  },
-  "documentation": {
-    "main": "./SKILL.md",
-    "installation": "./INSTALLATION.md",
-    "testing": "./TESTING.md",
-    "setup": "./JEST-SETUP.md"
-  }
+    "./"
+  ]
 }

@@ -3,8 +3,8 @@
 
 # Code changes
 "code":
-  - skill/scripts/**/*.sh
-  - skill/api/**
+  - scripts/**/*.sh
+  - api/**
   - plugin/**
 
 # Tests
@@ -35,10 +35,11 @@
 
 # Skill & Plugin
 "skill":
-  - skill/SKILL.md
-  - skill/IMPROVEMENTS.md
-  - skill/prompts/**
-  - skill/scripts/**
+  - SKILL.md
+  - skills/**
+  - docs/IMPROVEMENTS.md
+  - prompts/**
+  - scripts/**
 
 "plugin":
   - plugin/**
@@ -46,16 +47,16 @@
 
 # Types of changes
 "type: feature":
-  - skill/scripts/**
-  - skill/api/**
+  - scripts/**
+  - api/**
 
 "type: bug":
-  - skill/scripts/**
-  - skill/api/**
+  - scripts/**
+  - api/**
 
 "type: enhancement":
   - docs/**
-  - skill/IMPROVEMENTS.md
+  - docs/IMPROVEMENTS.md
 
 "type: documentation":
   - "**/*.md"
@@ -67,16 +68,16 @@
 
 # Areas
 "area: migration":
-  - skill/scripts/migrate-*.sh
-  - skill/scripts/lib-studio.sh
+  - scripts/migrate-*.sh
+  - scripts/lib-studio.sh
 
 "area: validation":
-  - skill/scripts/verify-*.sh
-  - skill/scripts/preflight-*.sh
+  - scripts/verify-*.sh
+  - scripts/preflight-*.sh
 
 "area: cli":
-  - skill/scripts/**/*.sh
+  - scripts/**/*.sh
 
 "area: studio":
   - docs/STUDIO-CLI-GUIDE.md
-  - skill/scripts/studio-*.sh
+  - scripts/studio-*.sh

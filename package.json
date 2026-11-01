@@ -16,7 +16,7 @@
     "lint:md": "markdownlint '**/*.md'",
     "lint:yaml": "echo '✓ YAML linting via yamllint (install separately if needed)'",
     "lint:all": "npm run lint:js && npm run lint:md",
-    "migrate:budget": "node skill/api/migrate-with-budget.js"
+    "migrate:budget": "node api/migrate-with-budget.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.3"
