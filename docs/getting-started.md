@@ -193,10 +193,10 @@ studio create my-site
 
 Now that you understand the basics:
 
-1. **Want to reuse settings?** → Learn about [Configuration Profiles](./CONFIGURATION.md)
-2. **Want to optimize performance?** → Check [Advanced Usage](./ADVANCED.md)
-3. **Need more details?** → Read [Best Practices](./BEST-PRACTICES.md)
-4. **Hit a problem?** → See [Troubleshooting](./TROUBLESHOOTING.md)
+1. **Want to reuse settings?** → Learn about [Configuration Profiles](configuration.md)
+2. **Want to optimize performance?** → Check [Advanced Usage](advanced.md)
+3. **Need more details?** → Read [Best Practices](best-practices.md)
+4. **Hit a problem?** → See [Troubleshooting](troubleshooting.md)
 
 ## Getting Help
 

@@ -24,17 +24,17 @@ Choose based on your team's setup.
 
 ```bash
 # From your project root
-git clone https://github.com/lightspeedwp/wp-db-migrate.git
+git clone https://github.com/lightspeedwp/ls-wp-db-migrate.git
 
 # Or add as a submodule (recommended for git projects)
-git submodule add https://github.com/lightspeedwp/wp-db-migrate.git skills/wp-db-migrate
+git submodule add https://github.com/lightspeedwp/ls-wp-db-migrate.git skills/wp-db-migrate
 ```
 
 #### Option B: Use Symlink (macOS/Linux)
 
 ```bash
 # Link from your .claude/skills/ folder
-ln -s /path/to/wp-db-migrate/skill ~/.claude/skills/wp-db-migrate
+ln -s /path/to/wp-db-migrate/skill ~/.claude/skills/ls-wp-db-migrate
 ```
 
 #### Option C: Copy to Your Project
@@ -103,7 +103,7 @@ git push
 echo "$HOME/.claude/plugins/marketplaces/lightspeedwp/wp-db-migrate"
 
 # Or from the GitHub repository
-# https://github.com/lightspeedwp/wp-db-migrate/plugin
+# https://github.com/lightspeedwp/ls-wp-db-migrate/plugin
 ```
 
 ### Step 2: Install in Claude
@@ -114,7 +114,7 @@ echo "$HOME/.claude/plugins/marketplaces/lightspeedwp/wp-db-migrate"
 4. **Click "Add Plugin from GitHub"** or **"Install Plugin"**
 5. **Paste the GitHub URL:**
    ```
-   https://github.com/lightspeedwp/wp-db-migrate
+   https://github.com/lightspeedwp/ls-wp-db-migrate
    ```
 6. **Follow the installation prompts**
 7. **Restart Claude**
@@ -151,11 +151,11 @@ Or for help:
 
 ```bash
 # Clone the repository
-git clone https://github.com/lightspeedwp/wp-db-migrate.git
+git clone https://github.com/lightspeedwp/ls-wp-db-migrate.git
 
 # Or download specific scripts
-curl -O https://raw.githubusercontent.com/lightspeedwp/wp-db-migrate/main/skill/scripts/wp-migrate-clone-to-studio.sh
-curl -O https://raw.githubusercontent.com/lightspeedwp/wp-db-migrate/main/skill/scripts/lib-*.sh
+curl -O https://raw.githubusercontent.com/lightspeedwp/wp-db-migrate/main/scripts/wp-migrate-clone-to-studio.sh
+curl -O https://raw.githubusercontent.com/lightspeedwp/wp-db-migrate/main/scripts/lib-*.sh
 ```
 
 ### Step 2: Make Executable
@@ -172,7 +172,7 @@ chmod +x lib-*.sh
 export PATH="$PATH:/path/to/wp-db-migrate/skill/scripts"
 
 # Or copy to /usr/local/bin
-sudo cp skill/scripts/*.sh /usr/local/bin/
+sudo cp scripts/*.sh /usr/local/bin/
 ```
 
 ### Step 4: Use Directly
@@ -208,7 +208,7 @@ Before using the tool, make sure you have:
 
 ```bash
 # Run this to verify everything is installed
-./skill/scripts/preflight-check.sh
+./scripts/preflight-check.sh
 
 # Output will show:
 # ✓ WordPress Studio installed
@@ -236,10 +236,10 @@ Before using the tool, make sure you have:
 
 - [ ] Pull the latest code (includes the skill)
 - [ ] Enable the skill in Claude Code settings
-- [ ] Run preflight check: `./skill/scripts/preflight-check.sh`
+- [ ] Run preflight check: `./scripts/preflight-check.sh`
 - [ ] Test with: `./wp-migrate-clone-to-studio.sh --help`
 - [ ] Do a dry-run test: `./wp-migrate-clone-to-studio.sh --dry-run --from URL --to ~/Studio/test`
-- [ ] Read [Getting Started](./GETTING-STARTED.md) guide
+- [ ] Read [Getting Started](getting-started.md) guide
 
 ---
 
@@ -250,7 +250,7 @@ Before using the tool, make sure you have:
 1. Make sure the skill is in the correct directory:
 
    ```bash
-   ls ~/.claude/skills/wp-db-migrate/
+   ls ~/.claude/skills/ls-wp-db-migrate/
    ```
 
 2. Restart Claude Code (Cmd+R or Ctrl+R)
@@ -258,7 +258,7 @@ Before using the tool, make sure you have:
 3. Check the skill folder structure:
    ```bash
    # Should have SKILL.md at minimum
-   ls ~/.claude/skills/wp-db-migrate/
+   ls ~/.claude/skills/ls-wp-db-migrate/
    SKILL.md
    scripts/
    plugin/
@@ -320,9 +320,9 @@ ssh -i ~/.ssh/id_rsa user@staging.example.com 'echo Connected'
 2. Reinstall the skill:
 
    ```bash
-   rm -rf ~/.claude/skills/wp-db-migrate
-   git clone https://github.com/lightspeedwp/wp-db-migrate.git
-   ln -s $(pwd)/wp-db-migrate/skill ~/.claude/skills/wp-db-migrate
+   rm -rf ~/.claude/skills/ls-wp-db-migrate
+   git clone https://github.com/lightspeedwp/ls-wp-db-migrate.git
+   ln -s $(pwd)/wp-db-migrate/skill ~/.claude/skills/ls-wp-db-migrate
    ```
 
 3. Reload Claude
@@ -333,12 +333,12 @@ ssh -i ~/.ssh/id_rsa user@staging.example.com 'echo Connected'
 
 Once installed and working:
 
-1. **Read [Getting Started](./GETTING-STARTED.md)** — 5-minute quick start
-2. **Review [Best Practices](./BEST-PRACTICES.md)** — Safe migration strategies
-3. **Set up config file** — See [Configuration Guide](./CONFIGURATION.md)
+1. **Read [Getting Started](getting-started.md)** — 5-minute quick start
+2. **Review [Best Practices](best-practices.md)** — Safe migration strategies
+3. **Set up config file** — See [Configuration Guide](configuration.md)
 4. **Run your first migration** — Try a staging → local clone
-5. **Check [Reliability Guide](./RELIABILITY.md)** — Understand error recovery
-6. **Review [Analytics Guide](./ANALYTICS.md)** — Understand performance reports
+5. **Check [Reliability Guide](reliability.md)** — Understand error recovery
+6. **Review [Analytics Guide](analytics.md)** — Understand performance reports
 
 ---
 
@@ -420,10 +420,10 @@ EOF
 ## Getting Help
 
 - **Installation issues?** → See troubleshooting section above
-- **Usage questions?** → See [FAQ](./FAQ.md)
-- **Errors during migration?** → See [Troubleshooting](./TROUBLESHOOTING.md)
-- **Want to optimize?** → See [Best Practices](./BEST-PRACTICES.md)
-- **Need recovery help?** → See [Reliability Guide](./RELIABILITY.md)
+- **Usage questions?** → See [FAQ](faq.md)
+- **Errors during migration?** → See [Troubleshooting](troubleshooting.md)
+- **Want to optimize?** → See [Best Practices](best-practices.md)
+- **Need recovery help?** → See [Reliability Guide](reliability.md)
 
 ---
 

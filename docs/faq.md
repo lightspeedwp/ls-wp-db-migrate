@@ -418,7 +418,7 @@ The tool detects the failure, classifies it, and provides recovery guidance:
 3. **Remediation guidance** — Provides specific recovery steps for that failure type
 4. **Partial rollback available** — Can clean up incomplete data if needed
 
-See [Reliability Guide](./RELIABILITY.md) for all failure types and recovery procedures.
+See [Reliability Guide](reliability.md) for all failure types and recovery procedures.
 
 ### Can I rollback if import fails?
 
@@ -497,7 +497,7 @@ Or specify a custom directory:
 - Row counts and sizes
 - Suitable for analysis in Excel
 
-See [Analytics Guide](./ANALYTICS.md) for detailed explanations.
+See [Analytics Guide](analytics.md) for detailed explanations.
 
 ### How can I use reports in CI/CD?
 
@@ -543,13 +543,13 @@ Reports are enabled by default since they're useful for documentation and optimi
 
 ## Need More Help?
 
-- **Getting started?** → [Getting Started](./GETTING-STARTED.md)
-- **Configuration help?** → [Configuration Guide](./CONFIGURATION.md)
-- **Performance issues?** → [Best Practices](./BEST-PRACTICES.md)
-- **Advanced features?** → [Advanced Usage](./ADVANCED.md)
-- **Want reliability?** → [Reliability & Error Recovery](./RELIABILITY.md)
-- **Want analytics?** → [Analytics & Reporting](./ANALYTICS.md)
-- **Problem solving?** → [Troubleshooting](./TROUBLESHOOTING.md)
+- **Getting started?** → [Getting Started](getting-started.md)
+- **Configuration help?** → [Configuration Guide](configuration.md)
+- **Performance issues?** → [Best Practices](best-practices.md)
+- **Advanced features?** → [Advanced Usage](advanced.md)
+- **Want reliability?** → [Reliability & Error Recovery](reliability.md)
+- **Want analytics?** → [Analytics & Reporting](analytics.md)
+- **Problem solving?** → [Troubleshooting](troubleshooting.md)
 - **Run the help command:**
   ```bash
   ./wp-migrate-clone-to-studio.sh --help

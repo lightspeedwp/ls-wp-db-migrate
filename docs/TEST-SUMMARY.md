@@ -3,7 +3,7 @@
 ## Completion Status ✅
 
 **Date:** 2026-10-29  
-**Repository:** https://github.com/lightspeedwp/wp-db-migrate  
+**Repository:** https://github.com/lightspeedwp/ls-wp-db-migrate  
 **Commit:** `aa09caa` — "feat: Add Jest test suite with 100% coverage for all scripts"
 
 ## Test Suite Overview
@@ -346,6 +346,6 @@ All scripts are fully tested across safety, functionality, edge cases, and perfo
 
 **Created by:** Claude Haiku 4.5
 **Date:** 2026-10-29
-**Repository:** https://github.com/lightspeedwp/wp-db-migrate
+**Repository:** https://github.com/lightspeedwp/ls-wp-db-migrate
 **Commit:** aa09caa
 ````

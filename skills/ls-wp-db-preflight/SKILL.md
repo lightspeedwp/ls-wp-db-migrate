@@ -35,7 +35,7 @@ whether the user wants a new Studio site before creating it.
 Report table sizes/rows, prefixes, source URL candidates, missing tools and any
 multisite or prefix mismatch. Preserve core content tables such as `postmeta`;
 size alone is not a reason to exclude them. Choose exclusions in
-[prepare](../ls-wp-db-prepare/SKILL.md).
+[prepare](../../SKILL.md).
 
 The legacy `scripts/preflight-check.sh` checks additional tools and a fixed
 `~/.studio` path and may stop early. Do not treat it as a complete dependency audit.

@@ -23,10 +23,10 @@ Complete testing plan for validating wp-db-migrate with a team member before ful
 ### 1.2 Verify Test Environment
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
+cd ~/.claude/skills/ls-wp-db-migrate
 
 # Verify dependencies on test machine
-./skill/scripts/setup-dependencies.sh --verbose
+./scripts/setup-dependencies.sh --verbose
 
 # Expected: All required dependencies installed ✓
 ```
@@ -60,10 +60,10 @@ studio create test-migrate-site
 **Goal:** Preview migration without making changes
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
+cd ~/.claude/skills/ls-wp-db-migrate
 
 # Run with dry-run flag
-./skill/scripts/migrate-recovery-enhanced.sh --dry-run \
+./scripts/migrate-recovery-enhanced.sh --dry-run \
   ~/.studio/sites/test-migrate-site \
   "https://staging.example.com" \
   "https://test-migrate-site.local"
@@ -98,10 +98,10 @@ Suggested Exclusions (won't break site):
 **Goal:** Complete full migration workflow
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
+cd ~/.claude/skills/ls-wp-db-migrate
 
 # Run actual migration (no --dry-run)
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/test-migrate-site \
   "https://staging.example.com" \
   "https://test-migrate-site.local"
@@ -147,10 +147,10 @@ cd ~/.claude/skills/wp-db-migrate
 **Goal:** Verify data integrity and site functionality
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
+cd ~/.claude/skills/ls-wp-db-migrate
 
 # Verify import success
-./skill/scripts/verify-import.sh ~/.studio/sites/test-migrate-site
+./scripts/verify-import.sh ~/.studio/sites/test-migrate-site
 ```
 
 **What to check:**
@@ -210,10 +210,10 @@ studio create test-migrate-minimal
 **Goal:** Verify size reduction works
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
+cd ~/.claude/skills/ls-wp-db-migrate
 
 # Migration with table exclusions
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/test-migrate-minimal \
   "https://staging.example.com" \
   "https://test-migrate-minimal.local" \
@@ -288,7 +288,7 @@ ssh -i ~/.ssh/your-key user@staging.example.com 'wp --version'
 
 ```bash
 # Migration directly from remote server
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/Studio/test-migrate-ssh \
   "https://staging.example.com" \
   "https://test-migrate-ssh.local" \
@@ -315,10 +315,10 @@ ssh -i ~/.ssh/your-key user@staging.example.com 'wp --version'
 ### 5.1 Test Missing WordPress Studio Site (5 min)
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
+cd ~/.claude/skills/ls-wp-db-migrate
 
 # Try to migrate to non-existent site
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/non-existent-site \
   "https://staging.example.com" \
   "https://test.local"
@@ -334,10 +334,10 @@ cd ~/.claude/skills/wp-db-migrate
 ### 5.2 Test Invalid Source URL (5 min)
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
+cd ~/.claude/skills/ls-wp-db-migrate
 
 # Try with invalid URL
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/test-migrate-site \
   "https://non-existent-staging-url.com" \
   "https://test.local"
@@ -353,10 +353,10 @@ cd ~/.claude/skills/wp-db-migrate
 ### 5.3 Test Verification (5 min)
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
+cd ~/.claude/skills/ls-wp-db-migrate
 
 # Run verify on site that had errors
-./skill/scripts/verify-import.sh ~/.studio/sites/test-migrate-site
+./scripts/verify-import.sh ~/.studio/sites/test-migrate-site
 ```
 
 **What to verify:**
@@ -373,9 +373,9 @@ cd ~/.claude/skills/wp-db-migrate
 
 **Have team member review:**
 
-- [ ] ✓ [Setup Requirements](./SETUP-REQUIREMENTS.md) — Accurate for their machine
-- [ ] ✓ [Onboarding Checklist](./ONBOARDING-CHECKLIST.md) — Easy to follow
-- [ ] ✓ [Getting Started](./GETTING-STARTED.md) — Covers what they just did
+- [ ] ✓ [Setup Requirements](setup-requirements.md) — Accurate for their machine
+- [ ] ✓ [Onboarding Checklist](ONBOARDING-CHECKLIST.md) — Easy to follow
+- [ ] ✓ [Getting Started](getting-started.md) — Covers what they just did
 
 **Ask:**
 
@@ -385,13 +385,13 @@ cd ~/.claude/skills/wp-db-migrate
 
 ### 6.2 Check Troubleshooting Guide
 
-- [ ] ✓ [Troubleshooting](./TROUBLESHOOTING.md) — Covers errors they encountered
-- [ ] ✓ [FAQ](./FAQ.md) — Answers their questions
-- [ ] ✓ [Best Practices](./BEST-PRACTICES.md) — Clear and actionable
+- [ ] ✓ [Troubleshooting](troubleshooting.md) — Covers errors they encountered
+- [ ] ✓ [FAQ](faq.md) — Answers their questions
+- [ ] ✓ [Best Practices](best-practices.md) — Clear and actionable
 
 ### 6.3 Check Help References
 
-- [ ] ✓ `--help` flag works: `./skill/scripts/migrate-recovery.sh --help`
+- [ ] ✓ `--help` flag works: `./scripts/migrate-recovery.sh --help`
 - [ ] ✓ Help message is clear and complete
 - [ ] ✓ Options documented accurately
 
@@ -536,9 +536,9 @@ If critical failures occur:
 
 ## Documentation to Give Team Member
 
-1. **Before test:** `~/.claude/skills/wp-db-migrate/docs/TEAM-ANNOUNCEMENT.md`
-2. **During test:** `~/.claude/skills/wp-db-migrate/docs/ONBOARDING-CHECKLIST.md` + Getting Started
-3. **For troubleshooting:** `~/.claude/skills/wp-db-migrate/docs/TROUBLESHOOTING.md` + FAQ
+1. **Before test:** `~/.claude/skills/ls-wp-db-migrate/docs/TEAM-ANNOUNCEMENT.md`
+2. **During test:** `~/.claude/skills/ls-wp-db-migrate/docs/ONBOARDING-CHECKLIST.md` + Getting Started
+3. **For troubleshooting:** `~/.claude/skills/ls-wp-db-migrate/docs/TROUBLESHOOTING.md` + FAQ
 4. **After test:** This feedback form
 
 ---

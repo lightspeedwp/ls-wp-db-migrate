@@ -22,7 +22,7 @@ Advanced performance optimizations including Studio CLI automation, structured p
 
 ### Implementation: Auto-Create Site Script
 
-Create new script: `skill/scripts/create-and-migrate.sh`
+Create new script: `scripts/create-and-migrate.sh`
 
 ```bash
 #!/bin/bash
@@ -83,7 +83,7 @@ Current skill requires users to manually provide repo paths and setup.
 
 ### Solution: Interactive Prompt Structure
 
-Create: `skill/prompts/github-setup.md`
+Create: `prompts/github-setup.md`
 
 ```markdown
 # GitHub Repository Setup Prompt
@@ -173,7 +173,7 @@ Advisory token limits for Claude API calls that help the model self-regulate thi
 
 ### Implementation in wp-db-migrate
 
-Create: `skill/api/migrate-with-budget.js`
+Create: `api/migrate-with-budget.js`
 
 ```javascript
 /**
@@ -305,7 +305,7 @@ main();
 npm install @anthropic-ai/sdk
 
 # Run migration with budgets
-ANTHROPIC_API_KEY=sk-... node skill/api/migrate-with-budget.js \
+ANTHROPIC_API_KEY=sk-... node api/migrate-with-budget.js \
   /path/to/site backup.sql.gz old.com new.local
 ```bash
 
@@ -425,9 +425,9 @@ Searching for: prod.sql.gz
 
 ## Files to Add
 
-- `skill/scripts/create-and-migrate.sh` — Auto site creation + migration
-- `skill/prompts/github-setup.md` — Structured GitHub handling
-- `skill/api/migrate-with-budget.js` — Claude API with budgets
+- `scripts/create-and-migrate.sh` — Auto site creation + migration
+- `prompts/github-setup.md` — Structured GitHub handling
+- `api/migrate-with-budget.js` — Claude API with budgets
 - `OPTIMIZATION.md` — This guide (updated in main)
 - Updated `package.json` — Add Anthropic SDK
 - Updated `SKILL.md` — Reference optimizations

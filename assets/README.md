@@ -103,8 +103,8 @@ Or with dimensions:
 ## Related Files
 
 - [Main README](../README.md) — Project overview
-- [Documentation Index](../docs/README.md) — Documentation guide
-- [References](../references/README.md) — External resources
+- [Documentation Index](../README.md) — Documentation guide
+- [References](../README.md) — External resources
 
 ---
 

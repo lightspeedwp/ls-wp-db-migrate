@@ -323,16 +323,16 @@ Shows:
 
 ```bash
 # Test SSH connection only
-source skill/scripts/lib-ssh.sh
+source scripts/lib-ssh.sh
 ssh_configure "staging.example.com" "deploy" "~/.ssh/deploy_key" "22" "/var/www/html"
 ssh_test_connection
 
 # Test compression
-source skill/scripts/lib-compress.sh
+source scripts/lib-compress.sh
 compress_dump "/path/to/database.sql"
 
 # Test config loading
-source skill/scripts/lib-config.sh
+source scripts/lib-config.sh
 config_load ".wp-db-migrate.conf"
 config_print_summary
 ```
@@ -429,10 +429,10 @@ echo "Migration successful at $(date)" >> /var/log/migrations.log
 
 ## See Also
 
-- [Getting Started](./GETTING-STARTED.md) — Basic usage
-- [Configuration Guide](./CONFIGURATION.md) — Config file reference
-- [Best Practices](./BEST-PRACTICES.md) — Safety strategies
-- [Reliability & Error Recovery](./RELIABILITY.md) — Handle failures gracefully
-- [Analytics & Reporting](./ANALYTICS.md) — Track performance and optimize
-- [FAQ](./FAQ.md) — Common questions
-- [Troubleshooting](./TROUBLESHOOTING.md) — Problem solving
+- [Getting Started](getting-started.md) — Basic usage
+- [Configuration Guide](configuration.md) — Config file reference
+- [Best Practices](best-practices.md) — Safety strategies
+- [Reliability & Error Recovery](reliability.md) — Handle failures gracefully
+- [Analytics & Reporting](analytics.md) — Track performance and optimize
+- [FAQ](faq.md) — Common questions
+- [Troubleshooting](troubleshooting.md) — Problem solving

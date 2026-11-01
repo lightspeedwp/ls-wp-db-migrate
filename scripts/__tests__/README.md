@@ -206,6 +206,6 @@ Current CI status: ✅ All 192 tests passing
 
 ---
 
-**For test framework details:** See [JEST-SETUP.md](../JEST-SETUP.md)  
-**For testing guide:** See [TESTING.md](../TESTING.md)  
-**For coverage trends:** See [TEST-SUMMARY.md](../TEST-SUMMARY.md)
+**For test framework details:** See [JEST-SETUP.md](../../docs/JEST-SETUP.md)  
+**For testing guide:** See [TESTING.md](../../docs/TESTING.md)  
+**For coverage trends:** See [TEST-SUMMARY.md](../../docs/TEST-SUMMARY.md)

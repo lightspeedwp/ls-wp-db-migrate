@@ -291,6 +291,6 @@ cat .wp-db-migrate.conf
 
 ## See Also
 
-- [Getting Started](./GETTING-STARTED.md) — Basic usage
-- [Best Practices](./BEST-PRACTICES.md) — Configuration best practices
-- [Advanced Usage](./ADVANCED.md) — Advanced config options
+- [Getting Started](getting-started.md) — Basic usage
+- [Best Practices](best-practices.md) — Configuration best practices
+- [Advanced Usage](advanced.md) — Advanced config options

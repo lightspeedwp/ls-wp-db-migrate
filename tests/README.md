@@ -153,5 +153,5 @@ Tests run on Bash 3.2+ (tested on macOS and Linux). This ensures compatibility a
 ## Related Documentation
 
 - [Testing Guide](../docs/TESTING.md) — Complete testing overview
-- [Scripts Guide](../scripts/README.md) — Script reference
+- [Scripts Guide](../README.md) — Script reference
 - [BATS Official Docs](https://github.com/bats-core/bats-core) — BATS documentation

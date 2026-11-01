@@ -17,7 +17,7 @@ credentials or customer rows. Stop automatic retries. Preserve the original dump
 prepared output, reports and verified pre-import backup.
 
 Determine whether the database is unchanged, partly imported or unusable. Read
-[prepare](../ls-wp-db-prepare/SKILL.md) for SQL findings and exclusion changes.
+[prepare](../../SKILL.md) for SQL findings and exclusion changes.
 Do not exclude a core table merely to bypass a failing import.
 
 If the user requests rollback (or existing authorisation includes it), verify the
@@ -35,4 +35,4 @@ If rollback is not authorised, present the exact backup and local target for rev
 
 Propose a corrected preparation/import only after identifying a concrete cause.
 A retry that changes exclusions or account policy needs that scope resolved first.
-Use [verify](../ls-wp-db-verify/SKILL.md) after any successful restore or corrected import.
+Use [verify](../../SKILL.md) after any successful restore or corrected import.

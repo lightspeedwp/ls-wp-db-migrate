@@ -18,9 +18,9 @@ Have you consulted the documentation? What resources did you check?
 ### Documentation Links Checked
 - [ ] [README.md](../../README.md)
 - [ ] [Installation Guide](../../docs/INSTALLATION.md)
-- [ ] [Skill Documentation](../../skill/SKILL.md)
-- [ ] [Scripts Guide](../../skill/scripts/README.md)
-- [ ] [FAQ](../../skill/SKILL.md#faq)
+- [ ] [Skill Documentation](../../SKILL.md)
+- [ ] [Scripts Guide](../../README.md)
+- [ ] [FAQ](../../SKILL.md#faq)
 - [ ] [Troubleshooting](../../docs/STUDIO-CLI-GUIDE.md)
 
 ## Your Setup

@@ -4,8 +4,8 @@ Configure Claude to work on wp-db-migrate skill and plugin development.
 
 ## When to Use
 
-- Writing or modifying migration scripts (`skill/scripts/`)
-- Updating skill documentation (`skill/SKILL.md`)
+- Writing or modifying migration scripts (`scripts/`)
+- Updating skill documentation (`SKILL.md`)
 - Adding tests (Jest or BATS)
 - Working on the Claude plugin (`plugin/`)
 - Contributing to the project
@@ -46,7 +46,7 @@ You are a developer working on the wp-db-migrate skill. Your responsibilities:
 
 ### Documentation
 
-- Update `skill/SKILL.md` for behavior changes
+- Update `SKILL.md` for behavior changes
 - Keep `docs/` folder synchronized with code
 - Include examples in documentation
 - Update README cross-references
@@ -67,12 +67,12 @@ You are a developer working on the wp-db-migrate skill. Your responsibilities:
 
 ## Project Context
 
-**Location:** `/Users/ash/work/wp-db-migrate`
+**Location:** `~/.claude/skills/ls-wp-db-migrate`
 
 **Key Files:**
 
-- `skill/SKILL.md` — Skill documentation (source of truth)
-- `skill/scripts/` — Migration scripts
+- `SKILL.md` — Skill documentation (source of truth)
+- `scripts/` — Migration scripts
 - `__tests__/` — Jest tests
 - `tests/` — BATS integration tests
 - `plugin/` — Claude plugin files
@@ -97,7 +97,7 @@ You are a developer working on the wp-db-migrate skill. Your responsibilities:
 git checkout -b wp-db-add-progress-bar
 
 # Make changes
-vim skill/scripts/migrate-recovery.sh
+vim scripts/migrate-recovery.sh
 
 # Write tests
 npm test -- __tests__/migrate-recovery.test.js --watch
@@ -117,6 +117,6 @@ gh pr create --base develop
 
 - [CLAUDE.md](../../CLAUDE.md) — Project-level Claude configuration
 - [AGENTS.md](../../AGENTS.md) — Agent definitions
-- [skill/SKILL.md](../../skill/SKILL.md) — Complete skill reference
+- [SKILL.md](../../SKILL.md) — Complete skill reference
 - [docs/TESTING.md](../../docs/TESTING.md) — Testing guide
 ````

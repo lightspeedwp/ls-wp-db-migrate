@@ -79,7 +79,7 @@ curl -s https://api.github.com/repos/<owner>/<repo>/contents/<path> \
 
 ## Automation Script
 
-Create: `skill/scripts/github-backup-setup.sh`
+Create: `scripts/github-backup-setup.sh`
 
 ```bash
 #!/bin/bash

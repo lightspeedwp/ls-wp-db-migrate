@@ -2,7 +2,7 @@
 
 Diagnosis and solutions for common issues.
 
-> **Pro Tip:** Check the [Reliability & Error Recovery](./RELIABILITY.md) guide for proactive strategies to prevent common failures before they happen. This guide helps you fix issues after they occur.
+> **Pro Tip:** Check the [Reliability & Error Recovery](reliability.md) guide for proactive strategies to prevent common failures before they happen. This guide helps you fix issues after they occur.
 
 ## Error Messages
 
@@ -650,10 +650,10 @@ cat debug.log | head -200  # First 200 lines
 
 ## Documentation Links
 
-- [Getting Started](./GETTING-STARTED.md) — Quick start
-- [Configuration Guide](./CONFIGURATION.md) — Config reference
-- [Best Practices](./BEST-PRACTICES.md) — Safe strategies
-- [Reliability & Error Recovery](./RELIABILITY.md) — Handle failures and recover
-- [Analytics & Reporting](./ANALYTICS.md) — Track performance metrics
-- [Advanced Usage](./ADVANCED.md) — Power features
-- [FAQ](./FAQ.md) — Common questions
+- [Getting Started](getting-started.md) — Quick start
+- [Configuration Guide](configuration.md) — Config reference
+- [Best Practices](best-practices.md) — Safe strategies
+- [Reliability & Error Recovery](reliability.md) — Handle failures and recover
+- [Analytics & Reporting](analytics.md) — Track performance metrics
+- [Advanced Usage](advanced.md) — Power features
+- [FAQ](faq.md) — Common questions

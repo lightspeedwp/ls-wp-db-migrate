@@ -3,7 +3,7 @@
 The repository root is the personal Claude skill at
 `~/.claude/skills/ls-wp-db-migrate/`. Read [SKILL.md](SKILL.md) for migration work;
 load only the relevant sub-skills from `skills/`. Shared tools are in root `scripts/`
-and `lib/`, not `skill/scripts/`.
+and `lib/`, not `scripts/`.
 
 For repository maintenance, preserve local changes, inspect scripts before relying
 on their advertised features and run checks appropriate to the change:

@@ -99,7 +99,7 @@ Use ls-hosting skills:
 
 ### Phase 2: Migrate Database
 Use wp-db-migrate:
-1. ./skill/scripts/migrate-recovery.sh (import database)
+1. ./scripts/migrate-recovery.sh (import database)
 
 ### Phase 3: Configure Locally
 1. Copy plugins/themes to WordPress Studio
@@ -120,7 +120,7 @@ Use wp-db-migrate:
 \`\`\`bash
 # Use ls-hosting to get backup
 # Then migrate with wp-db-migrate
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/Studio/my-project \
   "https://production.example.com" \
   "https://my-project.local"
@@ -231,11 +231,11 @@ After all integration work, the complete local dev workflow is:
 ### Day 1: Initial Setup (30 minutes)
 
 ```bash
-# 1. wp-db-migrate is already at ~/.claude/skills/wp-db-migrate/
-cd ~/.claude/skills/wp-db-migrate
+# 1. wp-db-migrate is already at ~/.claude/skills/ls-wp-db-migrate/
+cd ~/.claude/skills/ls-wp-db-migrate
 
 # 2. Verify setup
-./skill/scripts/setup-dependencies.sh --install
+./scripts/setup-dependencies.sh --install
 
 # 3. Create WordPress Studio site
 studio create my-project
@@ -244,7 +244,7 @@ studio create my-project
 # Use: ls-hosting-sync-live-to-staging
 
 # 5. Migrate to local
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/my-project \
   "https://staging.example.com" \
   "https://my-project.local" \
@@ -327,7 +327,7 @@ code ~/.studio/sites/my-project/wp-content/themes/my-theme
 
 ### Priority 1: Immediate (This Week)
 
-1. ✅ Standardize all paths to use `~` and `~/.claude/skills/wp-db-migrate/`
+1. ✅ Standardize all paths to use `~` and `~/.claude/skills/ls-wp-db-migrate/`
 2. Create `docs/LS-HOSTING-INTEGRATION.md`
 3. Install WordPress agent skills globally: `~/.claude/skills/wordpress-agent`
 4. Update `docs/ONBOARDING-CHECKLIST.md` with WordPress skills step

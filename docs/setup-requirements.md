@@ -7,20 +7,20 @@ Complete guide for setting up wp-db-migrate on your development machine.
 ```bash
 # 1. Clone wp-db-migrate to ~/.claude/skills/
 cd ~/.claude/skills/
-git clone https://github.com/lightspeedwp/wp-db-migrate.git wp-db-migrate
+git clone https://github.com/lightspeedwp/ls-wp-db-migrate.git wp-db-migrate
 cd wp-db-migrate
 
 # 2. Verify dependencies
-./skill/scripts/setup-dependencies.sh --verbose
+./scripts/setup-dependencies.sh --verbose
 
 # 3. Install missing dependencies (optional)
-./skill/scripts/setup-dependencies.sh --install
+./scripts/setup-dependencies.sh --install
 
 # 4. Run preflight check
-./skill/scripts/preflight-check.sh
+./scripts/preflight-check.sh
 
 # 5. Test your setup
-./skill/scripts/migrate-recovery.sh --help
+./scripts/migrate-recovery.sh --help
 ```
 
 ## System Requirements
@@ -174,13 +174,13 @@ Run the dependency verification script to check all requirements:
 
 ```bash
 # Check dependencies (no changes)
-./skill/scripts/setup-dependencies.sh
+./scripts/setup-dependencies.sh
 
 # Check with detailed output
-./skill/scripts/setup-dependencies.sh --verbose
+./scripts/setup-dependencies.sh --verbose
 
 # Automatically install missing dependencies
-./skill/scripts/setup-dependencies.sh --install
+./scripts/setup-dependencies.sh --install
 ```
 
 **Output Example:**
@@ -356,7 +356,7 @@ wp --version
 If wp-cli is in a non-standard location:
 
 ```bash
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   --from https://example.com \
   --to ~/Studio/site \
   --ssh-host example.com \
@@ -371,20 +371,20 @@ If wp-cli is in a non-standard location:
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/lightspeedwp/wp-db-migrate.git
+   git clone https://github.com/lightspeedwp/ls-wp-db-migrate.git
    cd wp-db-migrate
    ```
 
 2. **Run dependency check**
 
    ```bash
-   ./skill/scripts/setup-dependencies.sh
+   ./scripts/setup-dependencies.sh
    ```
 
 3. **Install missing dependencies**
 
    ```bash
-   ./skill/scripts/setup-dependencies.sh --install
+   ./scripts/setup-dependencies.sh --install
    ```
 
 4. **Install Node dependencies**
@@ -401,8 +401,8 @@ If wp-cli is in a non-standard location:
 
 6. **Test the skill**
    ```bash
-   ./skill/scripts/preflight-check.sh
-   ./skill/scripts/migrate-recovery.sh --help
+   ./scripts/preflight-check.sh
+   ./scripts/migrate-recovery.sh --help
    ```
 
 ### For Team Leads
@@ -415,9 +415,9 @@ Share this checklist with new team members:
 - [ ] WordPress Studio installed
 - [ ] WP-CLI installed
 - [ ] wp-db-migrate cloned locally
-- [ ] Dependencies verified: `./skill/scripts/setup-dependencies.sh`
+- [ ] Dependencies verified: `./scripts/setup-dependencies.sh`
 - [ ] Tests pass: `npm test`
-- [ ] Preflight check passes: `./skill/scripts/preflight-check.sh`
+- [ ] Preflight check passes: `./scripts/preflight-check.sh`
 
 ## Environment Variables
 
@@ -460,17 +460,17 @@ npm run format:check
 
 ## Support
 
-- **Setup issues?** → Check [troubleshooting](./TROUBLESHOOTING.md) section
-- **Dependency help?** → Run `./skill/scripts/setup-dependencies.sh --help`
-- **General questions?** → See [FAQ](./FAQ.md)
+- **Setup issues?** → Check [troubleshooting](troubleshooting.md) section
+- **Dependency help?** → Run `./scripts/setup-dependencies.sh --help`
+- **General questions?** → See [FAQ](faq.md)
 
 ## Next Steps
 
 Once dependencies are verified:
 
-1. ✅ [Read Team Installation Guide](./TEAM-INSTALLATION.md) — Set up the skill/plugin
-2. ✅ [Review Getting Started](./GETTING-STARTED.md) — Run your first migration
-3. ✅ [Check Best Practices](./BEST-PRACTICES.md) — Safe migration strategies
+1. ✅ [Read Team Installation Guide](TEAM-INSTALLATION.md) — Set up the skill/plugin
+2. ✅ [Review Getting Started](getting-started.md) — Run your first migration
+3. ✅ [Check Best Practices](best-practices.md) — Safe migration strategies
 
 ---
 

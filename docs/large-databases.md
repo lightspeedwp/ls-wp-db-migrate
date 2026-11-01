@@ -31,7 +31,7 @@ Let wp-db-migrate analyze your database and suggest what to exclude:
 ssh user@staging.com "wp db export - " > staging-db.sql
 
 # 2. Analyze with wp-db-migrate
-./skill/scripts/preflight-check.sh
+./scripts/preflight-check.sh
 
 # This shows:
 # - Total database size
@@ -66,7 +66,7 @@ LightSpeed provides optimized configurations for common scenarios:
 # Copies: All pages + all posts + basic settings
 # Excludes: User activity, logs, revisions, cache, search indexes
 
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/Studio/my-project \
   "https://staging.example.com" \
   "https://my-project.local" \
@@ -86,7 +86,7 @@ PARALLEL_JOBS=4
 #### Profile: Pages Only (No Posts)
 
 ```bash
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/Studio/my-project \
   "https://staging.example.com" \
   "https://my-project.local" \
@@ -106,7 +106,7 @@ PARALLEL_JOBS=4
 #### Profile: Development (Basic Content)
 
 ```bash
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/Studio/my-project \
   "https://staging.example.com" \
   "https://my-project.local" \
@@ -129,7 +129,7 @@ PARALLEL_JOBS=4
 For specific needs, specify exact tables to exclude:
 
 ```bash
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/Studio/my-project \
   "https://staging.example.com" \
   "https://my-project.local" \
@@ -162,7 +162,7 @@ Don't just exclude everything. Use this approach:
 ### Step 1: Dry-Run with Minimal Exclusions (5 minutes)
 
 ```bash
-./skill/scripts/migrate-recovery-enhanced.sh --dry-run \
+./scripts/migrate-recovery-enhanced.sh --dry-run \
   ~/Studio/my-project \
   "https://staging.example.com" \
   "https://my-project.local" \
@@ -178,7 +178,7 @@ Don't just exclude everything. Use this approach:
 ### Step 2: If Still Too Large, Exclude More (5 minutes)
 
 ```bash
-./skill/scripts/migrate-recovery-enhanced.sh --dry-run \
+./scripts/migrate-recovery-enhanced.sh --dry-run \
   ~/Studio/my-project \
   "https://staging.example.com" \
   "https://my-project.local" \
@@ -188,7 +188,7 @@ Don't just exclude everything. Use this approach:
 ### Step 3: When Satisfied, Run for Real (10-30 minutes depending on size)
 
 ```bash
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/Studio/my-project \
   "https://staging.example.com" \
   "https://my-project.local" \
@@ -245,7 +245,7 @@ df -h ~/Studio
 # This gives you a fresh backup
 
 # 2. Analyze what can be removed
-./skill/scripts/preflight-check.sh
+./scripts/preflight-check.sh
 
 # 3. Create aggressive exclusion config
 cat > production-minimal.conf <<EOF
@@ -255,14 +255,14 @@ PARALLEL_JOBS=8
 EOF
 
 # 4. Dry-run first
-./skill/scripts/migrate-recovery-enhanced.sh --dry-run \
+./scripts/migrate-recovery-enhanced.sh --dry-run \
   ~/Studio/my-project \
   "https://production.com" \
   "https://my-project.local" \
   --config production-minimal.conf
 
 # 5. Verify size reduction looks good, then import
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/Studio/my-project \
   "https://production.com" \
   "https://my-project.local" \
@@ -311,7 +311,7 @@ Usually harmless. Data likely imported:
 
 ```bash
 # Check if import succeeded
-./skill/scripts/verify-import.sh ~/Studio/my-project
+./scripts/verify-import.sh ~/Studio/my-project
 
 # If incomplete, try again with fewer parallel jobs
 --jobs 2
@@ -321,7 +321,7 @@ Usually harmless. Data likely imported:
 
 ```bash
 # Reduce parallel jobs
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/Studio/my-project \
   "https://staging.example.com" \
   "https://my-project.local" \
@@ -395,7 +395,7 @@ Use with LightSpeed hosting skills:
 # Use: ls-hosting-sync-live-to-staging
 
 # 2. Reduce size with wp-db-migrate
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/Studio/my-project \
   "https://staging.example.com" \
   "https://my-project.local"
@@ -411,7 +411,7 @@ Use with LightSpeed hosting skills:
 
 **See also:**
 
-- [Getting Started](./GETTING-STARTED.md) — Basic migration
-- [Best Practices](./BEST-PRACTICES.md) — Safe strategies
-- [Troubleshooting](./TROUBLESHOOTING.md) — Problem solving
-- [Advanced Usage](./ADVANCED.md) — Power features
+- [Getting Started](getting-started.md) — Basic migration
+- [Best Practices](best-practices.md) — Safe strategies
+- [Troubleshooting](troubleshooting.md) — Problem solving
+- [Advanced Usage](advanced.md) — Power features

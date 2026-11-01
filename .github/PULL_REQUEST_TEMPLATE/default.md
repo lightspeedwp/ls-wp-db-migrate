@@ -36,7 +36,7 @@ Output from npm run test:all
 
 ## Documentation
 - [ ] Updated docs/README.md if needed
-- [ ] Updated skill/SKILL.md for behavior changes
+- [ ] Updated SKILL.md for behavior changes
 - [ ] Added examples if needed
 - [ ] Updated cross-references in docs
 

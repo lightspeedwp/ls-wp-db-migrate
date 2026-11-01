@@ -22,19 +22,19 @@ We've released **wp-db-migrate** — a professional-grade WordPress database mig
 
 ### Step 1: Clone to Claude Skills Folder
 
-All developers must have the git repo available at `~/.claude/skills/wp-db-migrate/`:
+All developers must have the git repo available at `~/.claude/skills/ls-wp-db-migrate/`:
 
 ```bash
 # Clone the repo to your Claude skills folder
 cd ~/.claude/skills/
-git clone https://github.com/lightspeedwp/wp-db-migrate.git wp-db-migrate
+git clone https://github.com/lightspeedwp/ls-wp-db-migrate.git wp-db-migrate
 cd wp-db-migrate
 
 # Verify all dependencies
-./skill/scripts/setup-dependencies.sh --verbose
+./scripts/setup-dependencies.sh --verbose
 
 # Auto-install if needed
-./skill/scripts/setup-dependencies.sh --install
+./scripts/setup-dependencies.sh --install
 ```
 
 ### Step 2: Install the Plugin (Optional)
@@ -47,11 +47,11 @@ You can also install as a Claude Plugin for easier access:
 4. Click Install
 5. Test with: `/wp-migrate-clone-to-studio --help`
 
-**Note:** The git repo at `~/.claude/skills/wp-db-migrate/` is required regardless of plugin installation. CLI commands reference it.
+**Note:** The git repo at `~/.claude/skills/ls-wp-db-migrate/` is required regardless of plugin installation. CLI commands reference it.
 
 ### Step 3: Follow Onboarding Checklist
 
-Open: `~/.claude/skills/wp-db-migrate/docs/ONBOARDING-CHECKLIST.md`
+Open: `~/.claude/skills/ls-wp-db-migrate/docs/ONBOARDING-CHECKLIST.md`
 
 This walks you through:
 
@@ -67,27 +67,27 @@ This walks you through:
 
 ## 📖 Essential Reading (in order)
 
-1. **[Setup Requirements](./SETUP-REQUIREMENTS.md)** (5 min)
+1. **[Setup Requirements](setup-requirements.md)** (5 min)
    - System requirements
    - What tools you need (wp-cli, studio-cli, etc.)
    - Dependency verification
 
-2. **[Getting Started](./GETTING-STARTED.md)** (5 min)
+2. **[Getting Started](getting-started.md)** (5 min)
    - Your first migration in 5 minutes
    - 5-stage workflow overview
    - Command examples
 
-3. **[Best Practices](./BEST-PRACTICES.md)** (15 min)
+3. **[Best Practices](best-practices.md)** (15 min)
    - Safe migration strategies
    - Backup procedures
    - When to use dry-run mode
    - Production database safety
 
-4. **[FAQ](./FAQ.md)** (10 min)
+4. **[FAQ](faq.md)** (10 min)
    - 30+ common questions answered
    - Quick reference guide
 
-5. **[Troubleshooting](./TROUBLESHOOTING.md)** (when needed)
+5. **[Troubleshooting](troubleshooting.md)** (when needed)
    - Common errors and solutions
    - Recovery procedures
 
@@ -154,8 +154,8 @@ ssh -i ~/.ssh/your-key user@staging.example.com
 studio create my-project
 
 # 2. Run migration (interactive)
-cd ~/.claude/skills/wp-db-migrate
-./skill/scripts/migrate-recovery.sh \
+cd ~/.claude/skills/ls-wp-db-migrate
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/my-project \
   "https://staging.example.com" \
   "https://my-project.local"
@@ -168,8 +168,8 @@ studio open my-project
 
 ```bash
 # Uses SSH to export directly from production/staging
-cd ~/.claude/skills/wp-db-migrate
-./skill/scripts/migrate-recovery.sh \
+cd ~/.claude/skills/ls-wp-db-migrate
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/my-project \
   "https://example.com" \
   "https://my-project.local" \
@@ -185,13 +185,13 @@ For large databases (>500MB), you can:
 **Option A: Scan and propose reductions**
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
+cd ~/.claude/skills/ls-wp-db-migrate
 
 # Ask wp-db-migrate to analyze and suggest reductions
-./skill/scripts/preflight-check.sh
+./scripts/preflight-check.sh
 
 # Then specify exclusions:
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/my-project \
   "https://staging.example.com" \
   "https://my-project.local" \
@@ -213,15 +213,15 @@ cp .wp-db-migrate.conf.sample .wp-db-migrate.conf
 **Option C: Dry-run first to see what will be removed**
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
-./skill/scripts/migrate-recovery-enhanced.sh --dry-run \
+cd ~/.claude/skills/ls-wp-db-migrate
+./scripts/migrate-recovery-enhanced.sh --dry-run \
   ~/.studio/sites/my-project \
   "https://staging.example.com" \
   "https://my-project.local" \
   --exclude-tables wp_postmeta
 ```
 
-See: **[Large Database Handling Guide](./LARGE-DATABASES.md)** for detailed strategies
+See: **[Large Database Handling Guide](large-databases.md)** for detailed strategies
 
 ---
 
@@ -241,8 +241,8 @@ wp-db-migrate works with **ls-hosting-*** skills for complete end-to-end workflo
 **Step 2: Migrate Locally (use wp-db-migrate)**
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
-./skill/scripts/migrate-recovery.sh \
+cd ~/.claude/skills/ls-wp-db-migrate
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/my-project \
   "https://production.example.com" \
   "https://my-project.local"
@@ -264,7 +264,7 @@ cd ~/.claude/skills/wp-db-migrate
 /ls-hosting-sync-content            # Sync to production
 ```
 
-See: **[ls-hosting Integration Guide](./LS-HOSTING-INTEGRATION.md)** for complete workflow details
+See: **[ls-hosting Integration Guide](ls-hosting-integration.md)** for complete workflow details
 
 ---
 
@@ -334,9 +334,9 @@ A: Yes. Backup is created before import.
 A: Yes. `wp_actionscheduler_logs` is safe to exclude and speeds up.
 
 **Q: How do I reduce a 5GB database to manageable size?**  
-A: See: [Large Database Handling Guide](./LARGE-DATABASES.md)
+A: See: [Large Database Handling Guide](large-databases.md)
 
-See: **[Full FAQ](./FAQ.md)** for 30+ questions
+See: **[Full FAQ](faq.md)** for 30+ questions
 
 ---
 
@@ -351,17 +351,17 @@ See: **[Full FAQ](./FAQ.md)** for 30+ questions
 ✅ **Do** use compression for large databases  
 ✅ **Do** verify your SSH setup before remote export
 
-Full guide: **[Best Practices](./BEST-PRACTICES.md)**
+Full guide: **[Best Practices](best-practices.md)**
 
 ---
 
 ## 🆘 Troubleshooting Quick Links
 
-- **SSH connection failed?** → [Troubleshooting: SSH](./TROUBLESHOOTING.md#ssh-connection-issues)
-- **Import failed?** → [Troubleshooting: Import](./TROUBLESHOOTING.md#database-import-failed)
-- **Slow migration?** → [Troubleshooting: Performance](./TROUBLESHOOTING.md#migration-is-too-slow)
-- **URL replacement issues?** → [Troubleshooting: URLs](./TROUBLESHOOTING.md#url-replacement-issues)
-- **Still stuck?** → [Full Troubleshooting Guide](./TROUBLESHOOTING.md)
+- **SSH connection failed?** → [Troubleshooting: SSH](troubleshooting.md#ssh-connection-issues)
+- **Import failed?** → [Troubleshooting: Import](troubleshooting.md#database-import-failed)
+- **Slow migration?** → [Troubleshooting: Performance](troubleshooting.md#migration-is-too-slow)
+- **URL replacement issues?** → [Troubleshooting: URLs](troubleshooting.md#url-replacement-issues)
+- **Still stuck?** → [Full Troubleshooting Guide](troubleshooting.md)
 
 ---
 
@@ -381,29 +381,29 @@ These skills help Claude give you **WordPress-expert guidance** directly in your
 
 ## 🎓 Getting Help
 
-1. **Check [FAQ](./FAQ.md)** — Answers 30+ common questions
-2. **Read [Troubleshooting](./TROUBLESHOOTING.md)** — Problem-solving guide
-3. **Run setup check** — `./skill/scripts/setup-dependencies.sh --verbose`
+1. **Check [FAQ](faq.md)** — Answers 30+ common questions
+2. **Read [Troubleshooting](troubleshooting.md)** — Problem-solving guide
+3. **Run setup check** — `./scripts/setup-dependencies.sh --verbose`
 4. **Use WordPress skills** — `/wp-plugin-development`, `/wp-block-development`, etc.
 5. **Ask your team lead** — Your team has setup experience
-6. **Check [ls-hosting Integration](./LS-HOSTING-INTEGRATION.md)** — Complete workflow guide
+6. **Check [ls-hosting Integration](ls-hosting-integration.md)** — Complete workflow guide
 
 ---
 
 ## 📚 Full Documentation
 
-- [Documentation Hub](./README-GUIDE.md) — All guides organized
-- [Setup Requirements](./SETUP-REQUIREMENTS.md) — Dependencies & system setup
-- [Team Installation](./TEAM-INSTALLATION.md) — Install for your team
-- [Onboarding Checklist](./ONBOARDING-CHECKLIST.md) — Step-by-step setup
-- [Getting Started](./GETTING-STARTED.md) — First migration guide
-- [Best Practices](./BEST-PRACTICES.md) — Safe strategies
-- [Advanced Usage](./ADVANCED.md) — Power features
-- [Reliability Guide](./RELIABILITY.md) — Error recovery
-- [Analytics Guide](./ANALYTICS.md) — Performance tracking
-- [Configuration Guide](./CONFIGURATION.md) — Setup & profiles
-- [FAQ](./FAQ.md) — Common questions
-- [Troubleshooting](./TROUBLESHOOTING.md) — Problem solving
+- [Documentation Hub](README-GUIDE.md) — All guides organized
+- [Setup Requirements](setup-requirements.md) — Dependencies & system setup
+- [Team Installation](TEAM-INSTALLATION.md) — Install for your team
+- [Onboarding Checklist](ONBOARDING-CHECKLIST.md) — Step-by-step setup
+- [Getting Started](getting-started.md) — First migration guide
+- [Best Practices](best-practices.md) — Safe strategies
+- [Advanced Usage](advanced.md) — Power features
+- [Reliability Guide](reliability.md) — Error recovery
+- [Analytics Guide](analytics.md) — Performance tracking
+- [Configuration Guide](configuration.md) — Setup & profiles
+- [FAQ](faq.md) — Common questions
+- [Troubleshooting](troubleshooting.md) — Problem solving
 
 ---
 
@@ -413,11 +413,11 @@ These skills help Claude give you **WordPress-expert guidance** directly in your
 
    ```bash
    cd ~/.claude/skills/
-   git clone https://github.com/lightspeedwp/wp-db-migrate.git wp-db-migrate
+   git clone https://github.com/lightspeedwp/ls-wp-db-migrate.git wp-db-migrate
    ```
 
 2. **Verify setup** (5 min)
-   - Run: `cd ~/.claude/skills/wp-db-migrate && ./skill/scripts/setup-dependencies.sh --verbose`
+   - Run: `cd ~/.claude/skills/ls-wp-db-migrate && ./scripts/setup-dependencies.sh --verbose`
 
 3. **Install plugin (optional)** (3 min)
    - Settings → Plugins → Add wp-db-migrate (for easier access in Claude)
@@ -426,7 +426,7 @@ These skills help Claude give you **WordPress-expert guidance** directly in your
    - Setup Requirements → Getting Started → Best Practices
 
 5. **Follow checklist** (5 min)
-   - Run: `~/.claude/skills/wp-db-migrate/docs/ONBOARDING-CHECKLIST.md`
+   - Run: `~/.claude/skills/ls-wp-db-migrate/docs/ONBOARDING-CHECKLIST.md`
 
 **Then:** You're ready for your first migration!
 **Bonus:** Try `/wp-plugin-development` in Claude for WordPress help!
@@ -444,11 +444,11 @@ These skills help Claude give you **WordPress-expert guidance** directly in your
 
 ---
 
-**Questions?** Ask your team lead or check the [Documentation Hub](./README-GUIDE.md)
+**Questions?** Ask your team lead or check the [Documentation Hub](README-GUIDE.md)
 
-**Ready to migrate?** Start with [Getting Started](./GETTING-STARTED.md)
+**Ready to migrate?** Start with [Getting Started](getting-started.md)
 
-**Need help?** See [Troubleshooting](./TROUBLESHOOTING.md)
+**Need help?** See [Troubleshooting](troubleshooting.md)
 
 ---
 

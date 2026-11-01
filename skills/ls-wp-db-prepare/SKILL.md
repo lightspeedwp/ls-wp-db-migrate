@@ -12,7 +12,7 @@ this sub-skill's directory (in Claude Code, `${CLAUDE_SKILL_DIR}`) and go up two
 levels to the repository root. Set `REPO` to that absolute path in the command
 examples. Never assume the current working directory is this checkout.
 
-Run [preflight](../ls-wp-db-preflight/SKILL.md) if the dump's tables, URLs or target
+Run [preflight](../../SKILL.md) if the dump's tables, URLs or target
 prefix have not been inspected. Set `DUMP`, `SITE` and a new absolute `OUTPUT` path.
 
 ```bash
@@ -39,4 +39,4 @@ Select optional flags from the user's needs and the actual table inventory:
 
 Record the input hash, output path, edits, excluded tables and unresolved findings
 from the tool's report. Sanitisation does not anonymise personal/customer data.
-Continue to [migrate](../ls-wp-db-migrate-import/SKILL.md) only if import is requested.
+Continue to [migrate](../../SKILL.md) only if import is requested.

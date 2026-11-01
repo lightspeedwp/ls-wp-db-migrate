@@ -19,11 +19,11 @@ Complete guide to all documentation for the WordPress Database Migration skill a
 
 1. Read [Main README](../README.md) for overview
 2. Follow [INSTALLATION.md](INSTALLATION.md) to install
-3. See [../skill/scripts/README.md](../skill/scripts/README.md) for quick command reference
+3. See [../scripts/README.md](../README.md) for quick command reference
 
 ### I Need to Migrate a Database
 
-1. Run `./skill/scripts/preflight-check.sh` to verify setup
+1. Run `./scripts/preflight-check.sh` to verify setup
 2. Follow instructions in [../README.md](../README.md) → "💡 Usage Examples"
 3. Refer to [STUDIO-CLI-GUIDE.md](STUDIO-CLI-GUIDE.md) for troubleshooting
 
@@ -44,7 +44,7 @@ Complete guide to all documentation for the WordPress Database Migration skill a
 
 1. Read [TESTING.md](TESTING.md) to understand test structure
 2. Review [JEST-SETUP.md](JEST-SETUP.md) for configuration
-3. See [../skill/IMPROVEMENTS.md](../skill/IMPROVEMENTS.md) for roadmap
+3. See [IMPROVEMENTS.md](IMPROVEMENTS.md) for roadmap
 
 ## Document Overview
 

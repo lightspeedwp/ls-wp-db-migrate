@@ -429,11 +429,11 @@ Provide:
 
 - Error report (from `.recovery/`)
 - Migration log (if using `--log-file`)
-- Output of `./skill/scripts/preflight-check.sh`
+- Output of `./scripts/preflight-check.sh`
 - System info: `uname -a`, `df -h`, `free -h`
 
 ## See Also
 
-- [Troubleshooting Guide](./TROUBLESHOOTING.md) — Common error messages
-- [Best Practices](./BEST-PRACTICES.md) — Prevention strategies
-- [Analytics & Monitoring](./ANALYTICS.md) — Track migration health
+- [Troubleshooting Guide](troubleshooting.md) — Common error messages
+- [Best Practices](best-practices.md) — Prevention strategies
+- [Analytics & Monitoring](analytics.md) — Track migration health

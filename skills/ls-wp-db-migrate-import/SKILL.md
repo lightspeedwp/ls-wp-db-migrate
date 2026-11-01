@@ -12,7 +12,7 @@ this sub-skill's directory (in Claude Code, `${CLAUDE_SKILL_DIR}`) and go up two
 levels to the repository root. Set `REPO` to that absolute path in the command
 examples. Never assume the current working directory is this checkout.
 
-Read [prepare](../ls-wp-db-prepare/SKILL.md) when there is no reviewed sanitised
+Read [prepare](../../SKILL.md) when there is no reviewed sanitised
 output. Establish `SITE`, `OUTPUT` (the prepared dump) and a new absolute `BACKUP`
 path outside the site's disposable working files. Confirm the target is local.
 Inspect installed `studio export --help` and `studio import --help`; use supported
@@ -35,7 +35,7 @@ An import request must cover overwriting this target with the reviewed exclusion
 and account policy. Ask only for unresolved scope. Never apply source-site writes
 or a remote deployment as part of a local import.
 
-On import failure, stop and read [recover](../ls-wp-db-recover/SKILL.md). Do not claim
-an automatic rollback. On success, read [verify](../ls-wp-db-verify/SKILL.md).
+On import failure, stop and read [recover](../../SKILL.md). Do not claim
+an automatic rollback. On success, read [verify](../../SKILL.md).
 The `migrate-recovery*.sh` scripts only verify, replace URLs and start a server;
 they cannot perform this import. Do not use the clone orchestrator for local dumps.

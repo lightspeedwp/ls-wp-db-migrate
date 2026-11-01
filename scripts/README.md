@@ -85,7 +85,7 @@ For easy access from anywhere, add these scripts to your PATH:
 
 ```bash
 # Add this to your ~/.zshrc or ~/.bash_profile
-export PATH="$PATH:/Users/ash/Studio/thisonetimeonacid/.claude/skills/wp-db-migrate/scripts"
+export PATH="$PATH:~/.claude/skills/ls-wp-db-migrate/scripts"
 ```bash
 
 Then you can run from anywhere:
@@ -104,7 +104,7 @@ start-server.sh /Users/ash/Studio/my-site
 ### "Permission denied"
 Make sure scripts are executable:
 ```bash
-chmod +x /Users/ash/Studio/thisonetimeonacid/.claude/skills/wp-db-migrate/scripts/*.sh
+chmod +x ~/.claude/skills/ls-wp-db-migrate/scripts/*.sh
 ```bash
 
 ### "Studio command not found"

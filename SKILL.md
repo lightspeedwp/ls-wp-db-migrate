@@ -18,11 +18,11 @@ request; a complete migration follows preflight → prepare → migrate → veri
 
 | Stage | Read | Use for |
 | --- | --- | --- |
-| `preflight` | [Preflight](skills/ls-wp-db-preflight/SKILL.md) | Dependencies, source tables, URLs and target prefix |
-| `prepare` | [Prepare](skills/ls-wp-db-prepare/SKILL.md) | Sanitising an export and choosing exclusions |
-| `migrate` | [Migrate](skills/ls-wp-db-migrate-import/SKILL.md) | Backing up and importing into a local Studio site |
-| `verify` | [Verify](skills/ls-wp-db-verify/SKILL.md) | URL replacement, counts and site checks |
-| `recover` | [Recover](skills/ls-wp-db-recover/SKILL.md) | Diagnosing a failed import and restoring a backup |
+| `preflight` | [Preflight](SKILL.md) | Dependencies, source tables, URLs and target prefix |
+| `prepare` | [Prepare](SKILL.md) | Sanitising an export and choosing exclusions |
+| `migrate` | [Migrate](SKILL.md) | Backing up and importing into a local Studio site |
+| `verify` | [Verify](SKILL.md) | URL replacement, counts and site checks |
+| `recover` | [Recover](SKILL.md) | Diagnosing a failed import and restoring a backup |
 
 For example: `/ls-wp-db-migrate preflight /path/to/export.sql /path/to/studio-site`.
 These are routed arguments, not nested slash commands. Plugin installations also

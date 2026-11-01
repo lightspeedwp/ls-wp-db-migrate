@@ -18,18 +18,18 @@ All developers must clone wp-db-migrate to the same location for consistency:
 ```bash
 # Clone to ~/.claude/skills/
 cd ~/.claude/skills/
-git clone https://github.com/lightspeedwp/wp-db-migrate.git wp-db-migrate
+git clone https://github.com/lightspeedwp/ls-wp-db-migrate.git wp-db-migrate
 cd wp-db-migrate
 ```
 
-- [ ] Repository cloned to `~/.claude/skills/wp-db-migrate/`
+- [ ] Repository cloned to `~/.claude/skills/ls-wp-db-migrate/`
 - [ ] You're in the `wp-db-migrate` directory
 
 ### Step 1.2: Check Dependencies
 
 ```bash
 # Run the automated dependency check
-./skill/scripts/setup-dependencies.sh --verbose
+./scripts/setup-dependencies.sh --verbose
 ```
 
 **What you should see:**
@@ -47,16 +47,16 @@ If the dependency check showed missing tools:
 
 ```bash
 # Automatically install via Homebrew
-./skill/scripts/setup-dependencies.sh --install
+./scripts/setup-dependencies.sh --install
 
 # OR install manually (see Setup Requirements guide)
-# Individual tool installation docs: ~/.claude/skills/wp-db-migrate/docs/SETUP-REQUIREMENTS.md
+# Individual tool installation docs: ~/.claude/skills/ls-wp-db-migrate/docs/SETUP-REQUIREMENTS.md
 ```
 
-**Troubleshooting:** See [Setup Requirements Guide](./SETUP-REQUIREMENTS.md#troubleshooting)
+**Troubleshooting:** See [Setup Requirements Guide](setup-requirements.md#troubleshooting)
 
 - [ ] Missing dependencies installed (if any)
-- [ ] Re-run dependency check to verify: `./skill/scripts/setup-dependencies.sh`
+- [ ] Re-run dependency check to verify: `./scripts/setup-dependencies.sh`
 
 ---
 
@@ -135,7 +135,7 @@ Test that the migration scripts run correctly.
 ### Step 4.1: Check Preflight
 
 ```bash
-./skill/scripts/preflight-check.sh
+./scripts/preflight-check.sh
 ```
 
 This runs detailed environment checks.
@@ -152,7 +152,7 @@ This runs detailed environment checks.
 ### Step 4.2: Test Help Command
 
 ```bash
-./skill/scripts/migrate-recovery.sh --help
+./scripts/migrate-recovery.sh --help
 ```
 
 This should display usage information for the main migration script.
@@ -164,7 +164,7 @@ This should display usage information for the main migration script.
 
 ```bash
 # Create a test directory first (if you have WordPress Studio)
-# ./skill/scripts/migrate-recovery-enhanced.sh --dry-run ~/Studio/test-site "https://example.com" "https://test.local"
+# ./scripts/migrate-recovery-enhanced.sh --dry-run ~/Studio/test-site "https://example.com" "https://test.local"
 ```
 
 _Skip this step if you don't have WordPress Studio set up yet._
@@ -179,7 +179,7 @@ Read the essential documentation to understand how wp-db-migrate works.
 
 ### Step 5.1: Read Getting Started
 
-Open and read: [Getting Started Guide](./GETTING-STARTED.md)
+Open and read: [Getting Started Guide](getting-started.md)
 
 **Key concepts to understand:**
 
@@ -192,7 +192,7 @@ Open and read: [Getting Started Guide](./GETTING-STARTED.md)
 
 ### Step 5.2: Review Best Practices
 
-Open and read: [Best Practices Guide](./BEST-PRACTICES.md)
+Open and read: [Best Practices Guide](best-practices.md)
 
 **Key concepts:**
 
@@ -208,11 +208,11 @@ Open and read: [Best Practices Guide](./BEST-PRACTICES.md)
 
 Bookmark these links for quick reference:
 
-- [ ] [Setup Requirements](./SETUP-REQUIREMENTS.md) — Dependencies & troubleshooting
-- [ ] [Team Installation](./TEAM-INSTALLATION.md) — How to install for your team
-- [ ] [FAQ](./FAQ.md) — 30+ common questions
-- [ ] [Troubleshooting](./TROUBLESHOOTING.md) — Problem solving guide
-- [ ] [Reliability Guide](./RELIABILITY.md) — Error recovery & resilience
+- [ ] [Setup Requirements](setup-requirements.md) — Dependencies & troubleshooting
+- [ ] [Team Installation](TEAM-INSTALLATION.md) — How to install for your team
+- [ ] [FAQ](faq.md) — 30+ common questions
+- [ ] [Troubleshooting](troubleshooting.md) — Problem solving guide
+- [ ] [Reliability Guide](reliability.md) — Error recovery & resilience
 
 ---
 
@@ -243,7 +243,7 @@ If your team uses the Claude Skill or Plugin:
 
 ```
 # In Claude → Settings → Plugins
-# Add from GitHub: https://github.com/lightspeedwp/wp-db-migrate
+# Add from GitHub: https://github.com/lightspeedwp/ls-wp-db-migrate
 ```
 
 - [ ] Skill/Plugin enabled in Claude (if applicable)
@@ -260,19 +260,19 @@ You're now ready to run migrations! 🎉
 Choose based on what you need to do:
 
 **I want to run my first migration:**
-→ Follow [Getting Started](./GETTING-STARTED.md)
+→ Follow [Getting Started](getting-started.md)
 
 **I need to understand error recovery:**
-→ Read [Reliability Guide](./RELIABILITY.md)
+→ Read [Reliability Guide](reliability.md)
 
 **I want to optimize performance:**
-→ Read [Advanced Usage](./ADVANCED.md)
+→ Read [Advanced Usage](advanced.md)
 
 **I have a specific question:**
-→ Check [FAQ](./FAQ.md)
+→ Check [FAQ](faq.md)
 
 **Something isn't working:**
-→ Check [Troubleshooting](./TROUBLESHOOTING.md)
+→ Check [Troubleshooting](troubleshooting.md)
 
 ---
 
@@ -282,9 +282,9 @@ Choose based on what you need to do:
 
 **Solution:**
 
-1. Read: [Setup Requirements: Troubleshooting](./SETUP-REQUIREMENTS.md#troubleshooting)
-2. Run: `./skill/scripts/setup-dependencies.sh --verbose`
-3. Install missing tools: `./skill/scripts/setup-dependencies.sh --install`
+1. Read: [Setup Requirements: Troubleshooting](setup-requirements.md#troubleshooting)
+2. Run: `./scripts/setup-dependencies.sh --verbose`
+3. Install missing tools: `./scripts/setup-dependencies.sh --install`
 
 ### "npm install failed"
 
@@ -293,33 +293,33 @@ Choose based on what you need to do:
 1. Check Node.js version: `node --version` (should be 14+)
 2. Clear npm cache: `npm cache clean --force`
 3. Try again: `npm install`
-4. If still failing, check [SETUP-REQUIREMENTS.md](./SETUP-REQUIREMENTS.md)
+4. If still failing, check [SETUP-REQUIREMENTS.md](setup-requirements.md)
 
 ### "Tests are failing"
 
 **Solution:**
 
-1. Ensure all dependencies installed: `./skill/scripts/setup-dependencies.sh`
+1. Ensure all dependencies installed: `./scripts/setup-dependencies.sh`
 2. Verify Node.js/NPM versions are correct
-3. Check [TESTING.md](../TESTING.md) for detailed test info
+3. Check [TESTING.md](TESTING.md) for detailed test info
 4. Ask your team lead if there are environment-specific setup steps
 
 ### "Scripts won't run"
 
 **Solution:**
 
-1. Make scripts executable: `chmod +x skill/scripts/*.sh`
+1. Make scripts executable: `chmod +x scripts/*.sh`
 2. Check shell: `echo $SHELL` (should end in `bash` or `zsh`)
-3. Run preflight check: `./skill/scripts/preflight-check.sh`
+3. Run preflight check: `./scripts/preflight-check.sh`
 
 ### "I'm stuck"
 
 **Get help:**
 
 1. Ask your team lead
-2. Check [FAQ](./FAQ.md) for common questions
-3. Search [Troubleshooting Guide](./TROUBLESHOOTING.md)
-4. Read [Reliability Guide](./RELIABILITY.md) for error recovery
+2. Check [FAQ](faq.md) for common questions
+3. Search [Troubleshooting Guide](troubleshooting.md)
+4. Read [Reliability Guide](reliability.md) for error recovery
 
 ---
 
@@ -343,15 +343,15 @@ Before you consider yourself "onboarded", verify all of these:
 
 **Before asking for help, try:**
 
-1. Running dependency check: `./skill/scripts/setup-dependencies.sh --verbose`
-2. Checking the [FAQ](./FAQ.md)
-3. Reading [Troubleshooting Guide](./TROUBLESHOOTING.md)
-4. Searching [Reliability Guide](./RELIABILITY.md)
+1. Running dependency check: `./scripts/setup-dependencies.sh --verbose`
+2. Checking the [FAQ](faq.md)
+3. Reading [Troubleshooting Guide](troubleshooting.md)
+4. Searching [Reliability Guide](reliability.md)
 
 **If you're still stuck:**
 
 - Ask your team lead
-- Share the output of `./skill/scripts/setup-dependencies.sh --verbose`
+- Share the output of `./scripts/setup-dependencies.sh --verbose`
 - Reference the specific step in this checklist
 
 ---
@@ -366,16 +366,16 @@ _Print this checklist and check items off as you complete them, or track progres
 
 **Documentation Links:**
 
-- [Team Installation Guide](./TEAM-INSTALLATION.md)
-- [Getting Started](./GETTING-STARTED.md)
-- [Setup Requirements](./SETUP-REQUIREMENTS.md)
-- [Best Practices](./BEST-PRACTICES.md)
-- [FAQ](./FAQ.md)
-- [Troubleshooting](./TROUBLESHOOTING.md)
-- [Reliability Guide](./RELIABILITY.md)
-- [Advanced Usage](./ADVANCED.md)
-- [Analytics Guide](./ANALYTICS.md)
-- [Documentation Hub](./README-GUIDE.md)
+- [Team Installation Guide](TEAM-INSTALLATION.md)
+- [Getting Started](getting-started.md)
+- [Setup Requirements](setup-requirements.md)
+- [Best Practices](best-practices.md)
+- [FAQ](faq.md)
+- [Troubleshooting](troubleshooting.md)
+- [Reliability Guide](reliability.md)
+- [Advanced Usage](advanced.md)
+- [Analytics Guide](analytics.md)
+- [Documentation Hub](README-GUIDE.md)
 
 **Last Updated:** October 2026  
 **Version:** 1.1.0

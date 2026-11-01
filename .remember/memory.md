@@ -80,21 +80,21 @@ npm run test:all     # Both (required before commit)
 
 ### Migrate a Database
 ```bash
-./skill/scripts/preflight-check.sh  # Verify setup
-./skill/scripts/migrate-recovery-enhanced.sh --dry-run \
+./scripts/preflight-check.sh  # Verify setup
+./scripts/migrate-recovery-enhanced.sh --dry-run \
   /path/to/studio/site "old-url" "new-url"
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   /path/to/studio/site "old-url" "new-url"
 ```bash
 
 ### Update Documentation
-- Edit `skill/SKILL.md` (source of truth)
+- Edit `SKILL.md` (source of truth)
 - Update `docs/` folder to reflect changes
 - Cross-reference with README.md
 
 ## Team/Maintainer Info
 
-**Repo:** https://github.com/lightspeedwp/wp-db-migrate
+**Repo:** https://github.com/lightspeedwp/ls-wp-db-migrate
 **Type:** LightSpeed WP skill (WordPress + SQLite focused)
 **Status:** Production-ready (v1.1.0)
 

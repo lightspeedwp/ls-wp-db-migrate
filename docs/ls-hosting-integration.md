@@ -51,20 +51,20 @@ Use LightSpeed hosting skills to get backups and site files:
 Use wp-db-migrate to import into WordPress Studio:
 
 ```bash
-cd ~/.claude/skills/wp-db-migrate
+cd ~/.claude/skills/ls-wp-db-migrate
 
 # 1. Create WordPress Studio site
 studio create my-project
 
 # 2. Run migration with database reduction
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/my-project \
   "https://production.example.com" \
   "https://my-project.local" \
   --exclude-tables wp_actionscheduler_logs,wp_cache,wp_activity_log
 
 # 3. Verify import succeeded
-./skill/scripts/verify-import.sh ~/.studio/sites/my-project
+./scripts/verify-import.sh ~/.studio/sites/my-project
 ```
 
 **Flags reference:**
@@ -203,8 +203,8 @@ git commit -m "Theme updates for client feedback"
 /ls-hosting-fetch-tools production
 
 # 3. Migrate database locally
-cd ~/.claude/skills/wp-db-migrate
-./skill/scripts/migrate-recovery.sh \
+cd ~/.claude/skills/ls-wp-db-migrate
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/my-project \
   "https://production.example.com" \
   "https://my-project.local" \
@@ -252,10 +252,10 @@ code ~/.studio/sites/my-project/wp-content/themes/my-theme
 /ls-hosting-sync-live-to-staging
 
 # 2. Analyze database size
-cd ~/.claude/skills/wp-db-migrate
-./skill/scripts/preflight-check.sh
+cd ~/.claude/skills/ls-wp-db-migrate
+./scripts/preflight-check.sh
 
-# 3. Create reduction profile (in ~/.claude/skills/wp-db-migrate)
+# 3. Create reduction profile (in ~/.claude/skills/ls-wp-db-migrate)
 cat > production-minimal.conf <<EOF
 EXCLUDE_TABLES=wp_postmeta,wp_actionscheduler_logs,wp_cache,wp_activity_log,wp_searchindex
 COMPRESS=true
@@ -263,14 +263,14 @@ PARALLEL_JOBS=auto
 EOF
 
 # 4. Dry-run to preview
-./skill/scripts/migrate-recovery-enhanced.sh --dry-run \
+./scripts/migrate-recovery-enhanced.sh --dry-run \
   ~/.studio/sites/my-project \
   "https://production.example.com" \
   "https://my-project.local" \
   --config production-minimal.conf
 
 # 5. Run actual migration
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/my-project \
   "https://production.example.com" \
   "https://my-project.local" \
@@ -293,8 +293,8 @@ studio backup my-project
 /ls-hosting-sync-live-to-staging
 
 # 3. Migrate latest database
-cd ~/.claude/skills/wp-db-migrate
-./skill/scripts/migrate-recovery.sh \
+cd ~/.claude/skills/ls-wp-db-migrate
+./scripts/migrate-recovery.sh \
   ~/.studio/sites/my-project \
   "https://production.example.com" \
   "https://my-project.local" \
@@ -464,7 +464,7 @@ wp cache flush
 1. **Always use dry-run first** — Preview changes before importing
 
    ```bash
-   ./skill/scripts/migrate-recovery-enhanced.sh --dry-run ...
+   ./scripts/migrate-recovery-enhanced.sh --dry-run ...
    ```
 
 2. **Exclude non-essential tables** — Saves space and import time
@@ -502,11 +502,11 @@ wp cache flush
 
 ## See Also
 
-- [Getting Started](./GETTING-STARTED.md) — First migration walkthrough
-- [Large Database Handling](./LARGE-DATABASES.md) — Size reduction strategies
-- [Local Media Setup](./LOCAL-MEDIA-SETUP.md) — Media configuration details
-- [Best Practices](./BEST-PRACTICES.md) — Safe migration strategies
-- [Troubleshooting](./TROUBLESHOOTING.md) — Problem solving guide
+- [Getting Started](getting-started.md) — First migration walkthrough
+- [Large Database Handling](large-databases.md) — Size reduction strategies
+- [Local Media Setup](LOCAL-MEDIA-SETUP.md) — Media configuration details
+- [Best Practices](best-practices.md) — Safe migration strategies
+- [Troubleshooting](troubleshooting.md) — Problem solving guide
 
 ---
 

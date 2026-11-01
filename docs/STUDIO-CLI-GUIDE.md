@@ -50,7 +50,7 @@ Before using Studio CLI with the wp-db-migrate skill, install:
 
 ````bash
 # Check all required tools
-./skill/scripts/preflight-check.sh
+./scripts/preflight-check.sh
 ```bash
 
 Expected output:
@@ -106,7 +106,7 @@ The `lib-studio.sh` library provides reusable functions for common Studio operat
 
 ```bash
 #!/bin/bash
-source ./skill/scripts/lib-studio.sh
+source ./scripts/lib-studio.sh
 
 # Now use library functions
 studio_create_site "my-site" "/Users/ash/Studio/my-site" "my-site.local"
@@ -236,10 +236,10 @@ The `studio-site-manager.sh` script provides a menu-driven interface for common 
 
 ```bash
 # For current directory
-./skill/scripts/studio-site-manager.sh
+./scripts/studio-site-manager.sh
 
 # For a specific site
-./skill/scripts/studio-site-manager.sh /Users/ash/Studio/my-site
+./scripts/studio-site-manager.sh /Users/ash/Studio/my-site
 ```bash
 
 ### Available Options
@@ -261,7 +261,7 @@ The menu includes:
 
 ```bash
 # Open manager for a site
-./skill/scripts/studio-site-manager.sh /Users/ash/Studio/staging
+./scripts/studio-site-manager.sh /Users/ash/Studio/staging
 
 # Choose option 7 (Backup database)
 # Follow the prompts
@@ -358,7 +358,7 @@ studio create --name staging-test --path ~/Studio/staging-test
 ./studio-db-operations.sh pre-migrate-check ~/Studio/staging-test
 
 # 4. Sanitize and import (using migrate-recovery.sh from skill)
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   ~/Studio/staging-test \
   staging-2026-10-29.sql.gz \
   "https://staging.example.com" \
@@ -396,10 +396,10 @@ file prod-2026-10-29.sql.gz  # Check size
 gunzip -l prod-2026-10-29.sql.gz  # Check uncompressed size
 
 # 5. Pre-flight checks
-./skill/scripts/preflight-check.sh
+./scripts/preflight-check.sh
 
 # 6. Run migration
-./skill/scripts/create-and-migrate.sh \
+./scripts/create-and-migrate.sh \
   prod-dev \
   ~/Downloads/prod-2026-10-29.sql.gz \
   "https://example.com" \
@@ -494,7 +494,7 @@ studio status --path /path/to/site
 ./studio-db-operations.sh restore /path/to/site backup.sql
 
 # 2. Re-run migration excluding problem table
-./skill/scripts/migrate-recovery.sh \
+./scripts/migrate-recovery.sh \
   /path/to/site \
   export.sql.gz \
   "old.com" \
@@ -593,14 +593,14 @@ export STUDIO_PATH="/path/to/studio"
 
 | File | Purpose |
 |------|---------|
-| `./skill/scripts/lib-studio.sh` | Reusable functions library |
-| `./skill/scripts/studio-site-manager.sh` | Interactive menu |
-| `./skill/scripts/studio-db-operations.sh` | Database operations |
-| `./skill/scripts/create-and-migrate.sh` | Auto create + migrate |
-| `./skill/scripts/migrate-recovery.sh` | Migration with recovery |
-| `./skill/scripts/migrate-recovery-enhanced.sh` | Advanced migration |
-| `./skill/scripts/replace-urls.sh` | URL replacement only |
-| `./skill/scripts/verify-import.sh` | Post-import validation |
+| `./scripts/lib-studio.sh` | Reusable functions library |
+| `./scripts/studio-site-manager.sh` | Interactive menu |
+| `./scripts/studio-db-operations.sh` | Database operations |
+| `./scripts/create-and-migrate.sh` | Auto create + migrate |
+| `./scripts/migrate-recovery.sh` | Migration with recovery |
+| `./scripts/migrate-recovery-enhanced.sh` | Advanced migration |
+| `./scripts/replace-urls.sh` | URL replacement only |
+| `./scripts/verify-import.sh` | Post-import validation |
 
 ### Studio CLI Documentation
 
@@ -610,9 +610,9 @@ export STUDIO_PATH="/path/to/studio"
 
 ### Related Guides
 
-- [WordPress Database Migration (MySQL to SQLite)](./skill/SKILL.md)
-- [Pre-Flight Checks](./skill/scripts/README.md)
-- [Testing Guide](./TESTING.md)
+- [WordPress Database Migration (MySQL to SQLite)](../SKILL.md)
+- [Pre-Flight Checks](../README.md)
+- [Testing Guide](TESTING.md)
 
 ---
 

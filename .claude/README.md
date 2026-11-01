@@ -237,7 +237,7 @@ ls -la .claude/skills/
 
 For more information:
 - [Main README](../README.md) — Project overview
-- [Agent Guide](./agents/wp-db-migrate-developer.md) — Developer agent
-- [GitHub Configuration](./.github/README.md) — GitHub setup
+- [Agent Guide](agents/wp-db-migrate-developer.md) — Developer agent
+- [GitHub Configuration](../README.md) — GitHub setup
 - [Claude Code Docs](https://claude.com/docs) — Official documentation
 ````
