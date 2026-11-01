@@ -17,7 +17,7 @@ Configuration and workflows for GitHub-specific features.
 └── workflows/                   # GitHub Actions
     ├── test.yml                 # Test on push/PR
     └── lint.yml                 # Lint and format check
-```bash
+```
 
 ## Files
 
