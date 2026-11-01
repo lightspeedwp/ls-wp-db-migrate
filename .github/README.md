@@ -4,7 +4,7 @@ Configuration and workflows for GitHub-specific features.
 
 ## Structure
 
-````bash
+```bash
 .github/
 ├── README.md                     # This file
 ├── labeler.yml                  # Auto-labeling configuration
@@ -17,7 +17,7 @@ Configuration and workflows for GitHub-specific features.
 └── workflows/                   # GitHub Actions
     ├── test.yml                 # Test on push/PR
     └── lint.yml                 # Lint and format check
-```bash
+```
 
 ## Files
 
@@ -136,7 +136,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: echo "Hello, World!"
-```bash
+```
 
 ## Linking Templates
 
@@ -201,7 +201,7 @@ Mergify automates PR merging based on configurable rules.
 ```yaml
 author: dependabot[bot]
 -files~=^(?!docs/)  # Ensures ONLY docs/ changes
-```bash
+```
 Auto-merges PRs from Dependabot that only modify documentation. Restricted to dependabot to prevent abuse.
 
 **Rule 2: Test Updates (Develop Branch Only)**
@@ -209,21 +209,21 @@ Auto-merges PRs from Dependabot that only modify documentation. Restricted to de
 -files~=^(?!(__tests__|tests)/)  # Ensures ONLY test changes
 "#approved-reviews-by>=1"        # Requires 1 approval
 base=develop                      # Only on develop, not main
-```bash
+```
 Auto-merges test-only PRs on develop branch after human review. Main branch requires approval (see Rule 3).
 
 **Rule 3: Approved PRs (main branch)**
 ```yaml
 "#approved-reviews-by>=1"
 base=main
-```bash
+```
 Auto-merges when PR has at least 1 approval and all checks pass.
 
 **Rule 4: Approved PRs (develop branch)**
 ```yaml
 "#approved-reviews-by>=1"
 base=develop
-```bash
+```
 Auto-merges on develop with 1 approval (faster development iteration).
 
 ### Labels for Mergify Control
@@ -237,7 +237,7 @@ Auto-merges on develop with 1 approval (faster development iteration).
 ```bash
 # Allow auto-update for out-of-date branch
 gh pr edit PR_NUMBER --add-label auto-merge
-```bash
+```
 
 ### Merge Methods
 
@@ -258,17 +258,17 @@ Edit `.github/mergify.yml` to change behavior:
 **To require 2 approvals:**
 ```yaml
 "#approved-reviews-by>=2"
-```bash
+```
 
 **To require specific reviewer:**
 ```yaml
 "reviewed-by=@lightspeedwp/maintainers"
-```bash
+```
 
 **To skip certain PRs:**
 ```yaml
 "-label=manual-merge"
-```bash
+```
 
 **To add new conditions:**
 ```yaml
@@ -279,7 +279,7 @@ Edit `.github/mergify.yml` to change behavior:
   actions:
     merge:
       method: squash
-```bash
+```
 
 ### Monitoring Mergify
 
@@ -343,7 +343,6 @@ act -j test
 
 # Dry run (don't actually run)
 act -n
-```bash
+```
 
 See [nektos/act](https://github.com/nektos/act) for full documentation.
-````
