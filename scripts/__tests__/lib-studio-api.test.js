@@ -5,6 +5,14 @@ const { execSync } = require('child_process');
 describe('lib-studio-api.sh — Studio API Utilities', () => {
     const libPath = path.join(__dirname, '../lib-studio-api.sh');
     const testSitePath = path.join(__dirname, '../.tmp-studio-test');
+    // Run without wp-cli on every machine, so results never depend on an installed CLI.
+    const bashPath = execSync('command -v bash').toString().trim();
+    const envWithoutWp = {
+        ...process.env,
+        PATH: process.env.PATH.split(path.delimiter)
+            .filter((dir) => !fs.existsSync(path.join(dir, 'wp')))
+            .join(path.delimiter),
+    };
 
     beforeAll(() => {
         if (!fs.existsSync(libPath)) {
@@ -118,21 +126,24 @@ describe('lib-studio-api.sh — Studio API Utilities', () => {
     });
 
     test('studio_check_theme handles missing wp-cli gracefully', () => {
-        const result = execSync(`bash -c "
+        const result = execSync(`"${bashPath}" -c "
             source ${libPath}
             studio_check_theme '${testSitePath}' 2>&1
-        "`, { stdio: 'pipe' }).toString().trim();
+            echo \\"rc=\\$?\\"
+        "`, { stdio: 'pipe', env: envWithoutWp }).toString().trim();
 
-        expect(result.length).toBeGreaterThan(0);
+        expect(result).toBe('rc=0');
     });
 
-    test('studio_pre_import_check runs validation', () => {
-        const result = execSync(`bash -c "
+    test('studio_pre_import_check skips validation without wp-cli', () => {
+        const result = execSync(`"${bashPath}" -c "
             source ${libPath}
-            studio_pre_import_check '${testSitePath}' 2>&1 || true
-        "`, { stdio: 'pipe' }).toString();
+            studio_pre_import_check '${testSitePath}' 2>&1
+            echo \\"rc=\\$?\\"
+        "`, { stdio: 'pipe', env: envWithoutWp }).toString().trim();
 
-        expect(result).toContain('validation');
+        expect(result).toBe('rc=0');
+        expect(result).not.toContain('Running pre-import validation');
     });
 
     test('studio_post_import_check validates database', () => {

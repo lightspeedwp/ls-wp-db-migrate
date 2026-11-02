@@ -226,10 +226,13 @@ EOF
 }
 EOF
 
-    # Replace placeholders
-    sed -i '' "s|PLACEHOLDER_START|$(date -u +%Y-%m-%dT%H:%M:%SZ)|g" "$output_file"
-    sed -i '' "s|PLACEHOLDER_END|$(date -u +%Y-%m-%dT%H:%M:%SZ)|g" "$output_file"
-    sed -i '' "s|PLACEHOLDER_DURATION|$elapsed|g" "$output_file"
+    # Replace placeholders (via a temp file: `sed -i` differs between BSD and GNU sed)
+    local now
+    now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+    sed -e "s|PLACEHOLDER_START|$now|g" \
+        -e "s|PLACEHOLDER_END|$now|g" \
+        -e "s|PLACEHOLDER_DURATION|$elapsed|g" \
+        "$output_file" > "$output_file.tmp" && mv "$output_file.tmp" "$output_file"
 }
 
 # Export human-readable summary
