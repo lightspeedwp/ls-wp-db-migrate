@@ -13,20 +13,28 @@ levels to the repository root. Set `REPO` to that absolute path in the command
 examples. Never assume the current working directory is this checkout.
 
 Establish `SITE`, the reviewed source/target URL mapping and expected tables/counts
-from the prepared dump. Check installed `studio wp --help` and WP-CLI search-replace
-help before applying version-dependent flags. Read current `siteurl` and `home`;
-Studio may already have updated them. Distinct source home/site URLs or multisite
-require separate mappings, not a guessed single replacement.
+from the prepared dump. Read current `siteurl` and `home`; Studio's importer may
+already have updated them. Distinct source home/site URLs or multisite require
+separate mappings, not a guessed single replacement.
 
-Preview each required replacement with serialization-aware WP-CLI:
+Do not use `studio wp search-replace` on a Studio site: after a phpMyAdmin-style
+dump (`ALTER TABLE ... MODIFY ... AUTO_INCREMENT`), the SQLite driver's `DESCRIBE`
+no longer reports primary keys, so WP-CLI skips every such table and reports
+0 replacements. Preview each replacement with the bundled helper instead. It
+reads keys from `SHOW KEYS`, uses WP-CLI's serialisation-aware `SearchReplacer`,
+and matches http/https, `www.` and JSON-escaped (`https:\/\/`) forms of the
+source host(s) (a bare host, comma-separated for several):
 
 ```bash
-studio wp search-replace "$OLD_URL" "$NEW_URL" --all-tables --dry-run --path "$SITE"
+studio wp --path "$SITE" eval-file "$REPO/scripts/studio-search-replace.php" dry "$OLD_HOST" "$NEW_URL"
 ```
 
-Show the counts and intended mapping. If the requested migration already authorises
-this mapping, proceed; otherwise resolve permission before applying the same command
-without `--dry-run`. `scripts/replace-urls.sh` writes immediately and is not a preview.
+`sql-tool site-urls` and `sanitise` with `--studio-site` print this command with
+the hosts filled in. Show the per-table counts and intended mapping. If the
+requested migration already authorises this mapping, proceed; otherwise resolve
+permission before running it again with `apply` in place of `dry`. A warning names
+any table without a primary key that still holds matches; those are not changed.
+`scripts/replace-urls.sh` applies immediately and is not a preview.
 
 Read and check actual output from:
 

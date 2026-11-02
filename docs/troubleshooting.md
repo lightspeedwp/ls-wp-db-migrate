@@ -152,7 +152,9 @@ SQL error in table import
 1. Not enough disk space
 2. Parallel jobs too high (memory issue)
 3. Corrupted database export
-4. Incompatible SQLite schema
+4. Incompatible SQLite schema, such as
+   `ALTER TABLE ... ADD CONSTRAINT ... FOREIGN KEY` (run the export through
+   `node lib/sql-tool.cjs sanitise`, which removes these)
 
 **Solutions:**
 

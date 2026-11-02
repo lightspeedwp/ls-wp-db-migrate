@@ -37,6 +37,11 @@ Select optional flags from the user's needs and the actual table inventory:
 - Wordfence tables are omitted by default. Explain this and keep its plugin
   deactivated locally, or use `--keep-wordfence` when the user requires those tables.
 
+Foreign keys added by `ALTER TABLE ... ADD CONSTRAINT ... FOREIGN KEY` (phpMyAdmin
+writes these at the end of a dump, for example WooCommerce's `wc_download_log`)
+are always removed, because SQLite cannot add them to an existing table and
+Studio rolls back the whole import. The report lists each as a `foreign-key` edit.
+
 Record the input hash, output path, edits, excluded tables and unresolved findings
 from the tool's report. Sanitisation does not anonymise personal/customer data.
 Continue to [migrate](../../SKILL.md) only if import is requested.
