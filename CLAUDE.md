@@ -20,3 +20,5 @@ to test documentation or packaging. Use temporary fixtures and mocked CLIs.
 The plugin manifest is `.claude-plugin/plugin.json`; `plugin/manifest.json` is legacy
 metadata and is not a Claude Code loader configuration. No permission or model
 settings changes are required to use this skill. See [installation](docs/INSTALLATION.md).
+
+This repository will use Shell Scripts, it is better to interact with WP CLI and DB queries.
