@@ -29,9 +29,13 @@ echo "   To:   $NEW_URL"
 echo "   Site: $SITE_PATH"
 echo ""
 
-# Run the search-replace
-echo "⏳ Running search-replace (this may take a minute)..."
-studio wp search-replace "$OLD_URL" "$NEW_URL" --all-tables --path "$SITE_PATH" --quiet
+# Run the replacement. `wp search-replace` skips tables whose primary key the
+# SQLite driver hides from DESCRIBE (every table of a phpMyAdmin dump), so use
+# the helper, which matches http/https, www and JSON-escaped forms of the host.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OLD_HOST=$(printf '%s' "$OLD_URL" | sed -E 's#^[A-Za-z]+://##; s#/.*$##; s#^www\.##')
+echo "⏳ Replacing URLs (this may take a minute)..."
+studio wp --path "$SITE_PATH" eval-file "$SCRIPT_DIR/studio-search-replace.php" apply "$OLD_HOST" "$NEW_URL"
 
 echo ""
 echo "✅ URL replacement complete!"

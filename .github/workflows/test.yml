@@ -26,8 +26,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # The scripts use associative arrays and `declare -g` (Bash 4+);
+      # macOS ships Bash 3.2 as /bin/bash.
+      - name: Install Bash 5 (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install bash
+          echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
+
       - name: Run Jest tests
-        run: npm test -- --coverage
+        run: |
+          bash --version | head -1
+          npm test -- --coverage
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3
@@ -64,6 +74,15 @@ jobs:
       - name: Lint shell scripts
         run: |
           shellcheck scripts/*.sh || true
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Check JSON files
         run: npm run test -- --detectOpenHandles
