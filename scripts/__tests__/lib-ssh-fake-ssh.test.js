@@ -144,3 +144,91 @@ describe('lib-ssh.sh remote command building (LS-4797)', () => {
     expect(args[args.length - 1]).toBe('cd /srv/www && wp db export -');
   });
 });
+
+describe('ssh_export_db keeps stderr out of the dump (LS-4795)', () => {
+  const warning =
+    "Warning: Permanently added 'host.example' (ED25519) to the list of known hosts.";
+
+  test('a warning on stderr is reported but not written into the dump', () => {
+    const binDir = writeFakeSsh(
+      [
+        `echo "${warning}" >&2`,
+        "echo '-- MySQL dump 10.13'",
+        "echo 'CREATE TABLE wp_options (option_id int);'",
+      ].join('\n'),
+    );
+    const out = path.join(tmpDir, 'out.sql');
+    const result = runWithFakeSsh(
+      `ssh_export_db 'dev@host.example' '/srv/www' '${out}'`,
+      binDir,
+    );
+
+    expect(result.status).toBe(0);
+    const dump = fs.readFileSync(out, 'utf8');
+    expect(dump.startsWith('-- MySQL dump')).toBe(true);
+    expect(dump).not.toContain('Warning');
+    expect(result.stderr).toContain(warning);
+    expect(fs.readFileSync(`${out}.err`, 'utf8')).toContain(warning);
+  });
+
+  test('a clean export leaves no .err file behind', () => {
+    const binDir = writeFakeSsh();
+    const out = path.join(tmpDir, 'out.sql');
+    const result = runWithFakeSsh(
+      `ssh_export_db 'dev@host.example' '/srv/www' '${out}'`,
+      binDir,
+    );
+
+    expect(result.status).toBe(0);
+    expect(fs.existsSync(`${out}.err`)).toBe(false);
+  });
+
+  test('a failing export shows the remote error and fails', () => {
+    const binDir = writeFakeSsh(
+      [
+        "echo 'Error: Error establishing a database connection.' >&2",
+        'exit 1',
+      ].join('\n'),
+    );
+    const out = path.join(tmpDir, 'out.sql');
+    const result = runWithFakeSsh(
+      `ssh_export_db 'dev@host.example' '/srv/www' '${out}'`,
+      binDir,
+    );
+
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain('Database export failed');
+    expect(result.stderr).toContain('Error establishing a database connection');
+    expect(result.stdout).not.toContain('Database exported');
+  });
+
+  test('output that is not an SQL dump is rejected', () => {
+    const binDir = writeFakeSsh("echo 'This account is currently not available.'");
+    const out = path.join(tmpDir, 'out.sql');
+    const result = runWithFakeSsh(
+      `ssh_export_db 'dev@host.example' '/srv/www' '${out}'`,
+      binDir,
+    );
+
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain('does not look like an SQL dump');
+    expect(result.stdout).not.toContain('Database exported');
+  });
+
+  test('a MariaDB sandbox first line is accepted', () => {
+    const binDir = writeFakeSsh(
+      [
+        "echo '/*M!999999\\- enable the sandbox mode */'",
+        "echo '-- MariaDB dump 10.19'",
+      ].join('\n'),
+    );
+    const out = path.join(tmpDir, 'out.sql');
+    const result = runWithFakeSsh(
+      `ssh_export_db 'dev@host.example' '/srv/www' '${out}'`,
+      binDir,
+    );
+
+    expect(result.status).toBe(0);
+    expect(result.stdout).toContain('Database exported');
+  });
+});

@@ -187,6 +187,15 @@ ssh_get_db_size() {
     echo "$output"
 }
 
+# Print what ssh or the remote command wrote to stderr, if anything.
+ssh_report_stderr() {
+    local err_file="$1"
+    if [[ -s "$err_file" ]]; then
+        echo -e "${YELLOW}ssh/WP-CLI said (full text in $err_file):${NC}" >&2
+        sed 's/^/  /' "$err_file" >&2
+    fi
+}
+
 # Export database from remote host
 ssh_export_db() {
     local user_host="$1"
@@ -231,16 +240,38 @@ ssh_export_db() {
         ssh_cmd+=(-i "$SSH_KEY")
     fi
 
-    # Execute remote export and pipe to local file
-    if ! "${ssh_cmd[@]}" "$SSH_USER@$SSH_HOST" "$export_cmd" > "$local_file" 2>&1; then
+    # Execute remote export. Only stdout is the dump: ssh and WP-CLI
+    # messages on stderr go to a separate file and never into the SQL.
+    local err_file="${local_file}.err"
+    if ! "${ssh_cmd[@]}" "$SSH_USER@$SSH_HOST" "$export_cmd" > "$local_file" 2> "$err_file"; then
         echo -e "${RED}❌ Database export failed${NC}" >&2
+        ssh_report_stderr "$err_file"
         return 1
     fi
 
     # Verify file was created and has content
     if [[ ! -f "$local_file" ]] || [[ ! -s "$local_file" ]]; then
         echo -e "${RED}❌ Export file is empty or was not created${NC}" >&2
+        ssh_report_stderr "$err_file"
         return 1
+    fi
+
+    # A mysqldump/mariadb-dump file starts with a comment ("-- MySQL dump",
+    # "-- MariaDB dump" or a "/*M!...*/" line). Anything else is not a dump.
+    local first_line
+    first_line=$(grep -m 1 -v '^[[:space:]]*$' "$local_file" | head -c 200)
+    if [[ ! "$first_line" =~ ^(--|/\*) ]]; then
+        echo -e "${RED}❌ Export file does not look like an SQL dump. It starts with:${NC}" >&2
+        echo "  $first_line" >&2
+        ssh_report_stderr "$err_file"
+        return 1
+    fi
+
+    if [[ -s "$err_file" ]]; then
+        echo -e "${YELLOW}Messages from ssh/WP-CLI (kept out of the dump, saved to $err_file):${NC}" >&2
+        sed 's/^/  /' "$err_file" >&2
+    else
+        rm -f "$err_file"
     fi
 
     local file_size
@@ -305,6 +336,7 @@ export -f ssh_exec
 export -f ssh_exec_output
 export -f ssh_check_wp_cli
 export -f ssh_get_db_size
+export -f ssh_report_stderr
 export -f ssh_export_db
 export -f ssh_get_wp_version
 export -f ssh_get_site_url
