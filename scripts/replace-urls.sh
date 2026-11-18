@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # replace-urls.sh — Replace URLs in WordPress database
 # Usage: ./replace-urls.sh /path/to/studio/site "old-url" "new-url"
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # studio-site-manager.sh — Interactive WordPress Studio site manager
 # Provides menu-driven interface for common site management tasks
 # Usage: ./studio-site-manager.sh [site-path]

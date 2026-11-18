@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # lib-parallel.sh — Parallel table import/processing
 # Import multiple tables concurrently for 3-5x speedup
 #

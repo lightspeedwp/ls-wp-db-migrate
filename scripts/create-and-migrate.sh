@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # create-and-migrate.sh
 # Automatically creates a WordPress Studio site and migrates database
 # Usage: ./create-and-migrate.sh <site-name> <export-file> <old-url> [new-url]

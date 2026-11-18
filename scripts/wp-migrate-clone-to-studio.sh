@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # wp-migrate-clone-to-studio.sh — One-command WordPress database migration
 # Clones a dev/staging database to local WordPress Studio (SQLite)
 # Orchestrates all Phase 1 optimization libraries for maximum performance
@@ -27,23 +27,23 @@ trap 'rm -rf "$WORK_DIR"' EXIT
 
 # Source optimization libraries
 # shellcheck source=/dev/null
-source "$SCRIPT_DIR/lib-table-analyzer.sh"
+source "$SCRIPT_DIR/lib-table-analyzer.sh" || exit 1
 # shellcheck source=/dev/null
-source "$SCRIPT_DIR/lib-compress.sh"
+source "$SCRIPT_DIR/lib-compress.sh" || exit 1
 # shellcheck source=/dev/null
-source "$SCRIPT_DIR/lib-parallel.sh"
+source "$SCRIPT_DIR/lib-parallel.sh" || exit 1
 # shellcheck source=/dev/null
-source "$SCRIPT_DIR/lib-config.sh"
+source "$SCRIPT_DIR/lib-config.sh" || exit 1
 # shellcheck source=/dev/null
-source "$SCRIPT_DIR/lib-progress.sh"
+source "$SCRIPT_DIR/lib-progress.sh" || exit 1
 # shellcheck source=/dev/null
-source "$SCRIPT_DIR/lib-ssh.sh"
+source "$SCRIPT_DIR/lib-ssh.sh" || exit 1
 # shellcheck source=/dev/null
-source "$SCRIPT_DIR/lib-studio-api.sh"
+source "$SCRIPT_DIR/lib-studio-api.sh" || exit 1
 # shellcheck source=/dev/null
-source "$SCRIPT_DIR/lib-error-recovery.sh"
+source "$SCRIPT_DIR/lib-error-recovery.sh" || exit 1
 # shellcheck source=/dev/null
-source "$SCRIPT_DIR/lib-reports.sh"
+source "$SCRIPT_DIR/lib-reports.sh" || exit 1
 
 # Configuration
 FROM_URL=""
@@ -333,17 +333,23 @@ export_database() {
         return 0
     fi
 
+    # Dry-run never connects to the remote host
+    if [[ "$DRY_RUN" == true ]]; then
+        echo -e "${YELLOW}Dry-run: would export the database from $SSH_USER@$SSH_HOST:$WP_PATH over SSH; no connection made.${NC}"
+        return 0
+    fi
+
     # Use SSH for remote export
     spinner_start "Connecting to $SSH_USER@$SSH_HOST:$SSH_PORT"
 
     # Test SSH connection
-    if ! ssh_test_connection "$SSH_USER@$SSH_HOST" "$WP_PATH" 2>/dev/null; then
+    if ! ssh_test_connection "$SSH_USER@$SSH_HOST" "$WP_PATH"; then
         spinner_fail "SSH connection failed"
         return 1
     fi
 
     # Verify WordPress installation
-    if ! ssh_verify_wordpress 2>/dev/null; then
+    if ! ssh_verify_wordpress; then
         spinner_fail "WordPress verification failed"
         return 1
     fi
@@ -351,7 +357,7 @@ export_database() {
     # Export database via SSH
     spinner_start "Exporting database from $FROM_URL"
 
-    if ! ssh_export_db "$SSH_USER@$SSH_HOST" "$WP_PATH" "$DUMP_FILE" "$EXCLUDE_TABLES" 2>/dev/null; then
+    if ! ssh_export_db "$SSH_USER@$SSH_HOST" "$WP_PATH" "$DUMP_FILE" "$EXCLUDE_TABLES"; then
         spinner_fail "Database export failed"
         return 1
     fi

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # lib-ssh.sh — SSH utility library for remote WordPress operations
 # Execute commands on remote servers, manage database exports via SSH, handle authentication
 #
@@ -7,6 +7,15 @@
 #   ssh_test_connection "user@host" "/var/www/html"
 #   ssh_export_db "user@host" "/var/www/html" "local_file.sql"
 #   ssh_get_db_size "user@host" "/var/www/html"
+
+# These libraries use `declare -g` and associative arrays, which need Bash 4.2+.
+# macOS ships Bash 3.2 as /bin/bash; stop with a clear message instead of
+# failing later on a confusing syntax error.
+if (( BASH_VERSINFO[0] < 4 || (BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] < 2) )); then
+    echo "Error: ${BASH_SOURCE[0]##*/} needs Bash 4.2 or later; this is Bash ${BASH_VERSION}." >&2
+    echo "On macOS: brew install bash, then run the script with that bash (or put it first on PATH)." >&2
+    return 1 2>/dev/null || exit 1
+fi
 
 # shellcheck disable=SC2034
 # SSH state
@@ -125,9 +134,16 @@ ssh_test_connection() {
     ssh_build_cmd
     local -a ssh_cmd=("${SSH_CMD[@]}")
 
-    # Test connection
-    if ! "${ssh_cmd[@]}" "$SSH_USER@$SSH_HOST" "exit 0" 2>/dev/null; then
+    # Test connection, keeping ssh's own message to explain a failure
+    local ssh_error
+    if ! ssh_error=$("${ssh_cmd[@]}" "$SSH_USER@$SSH_HOST" "exit 0" 2>&1 >/dev/null); then
         echo -e "${RED}❌ Failed to connect to $SSH_USER@$SSH_HOST:$SSH_PORT${NC}" >&2
+        if [[ -n "$ssh_error" ]]; then
+            printf '%s\n' "$ssh_error" | sed 's/^/  /' >&2
+            if [[ "$ssh_error" == *"Host key verification failed"* ]]; then
+                ssh_host_key_hint
+            fi
+        fi
         return 1
     fi
 
@@ -165,14 +181,16 @@ ssh_exec_output() {
     ssh_build_cmd
     local -a ssh_cmd=("${SSH_CMD[@]}")
 
-    # Execute and capture output
-    "${ssh_cmd[@]}" "$SSH_USER@$SSH_HOST" "$cmd" 2>/dev/null
+    # Execute and capture output. stdout is the result the caller parses;
+    # stderr (auth, DNS, host key, WP-CLI errors) goes to the caller's stderr
+    # so the real cause of a failure stays visible.
+    "${ssh_cmd[@]}" "$SSH_USER@$SSH_HOST" "$cmd"
 }
 
 # Check if WP-CLI is available on remote host
 ssh_check_wp_cli() {
     local output
-    output=$(ssh_exec_output "which wp" 2>&1)
+    output=$(ssh_exec_output "which wp")
 
     if [[ -z "$output" ]] || [[ "$output" == *"not found"* ]]; then
         echo -e "${RED}❌ WP-CLI not found on remote host${NC}" >&2
@@ -186,7 +204,7 @@ ssh_check_wp_cli() {
 # Get remote database size
 ssh_get_db_size() {
     local output
-    output=$(ssh_exec_output "$(ssh_remote_cd) && wp db size --format=bytes" 2>&1)
+    output=$(ssh_exec_output "$(ssh_remote_cd) && wp db size --format=bytes")
 
     if [[ -z "$output" ]] || [[ "$output" == *"Error"* ]]; then
         echo -e "${YELLOW}Note: Could not determine remote database size${NC}" >&2
@@ -301,7 +319,7 @@ ssh_export_db() {
 # Get remote WordPress version
 ssh_get_wp_version() {
     local output
-    output=$(ssh_exec_output "$(ssh_remote_cd) && wp core version" 2>&1)
+    output=$(ssh_exec_output "$(ssh_remote_cd) && wp core version")
 
     if [[ -z "$output" ]] || [[ "$output" == *"Error"* ]]; then
         echo "unknown"
@@ -314,7 +332,7 @@ ssh_get_wp_version() {
 # Get remote site URL
 ssh_get_site_url() {
     local output
-    output=$(ssh_exec_output "$(ssh_remote_cd) && wp option get siteurl" 2>&1)
+    output=$(ssh_exec_output "$(ssh_remote_cd) && wp option get siteurl")
 
     if [[ -z "$output" ]] || [[ "$output" == *"Error"* ]]; then
         echo "unknown"
@@ -332,7 +350,7 @@ ssh_verify_wordpress() {
 
     # Check WordPress installation
     local wp_path_check
-    wp_path_check=$(ssh_exec_output "test -f $(printf %q "$REMOTE_WP_PATH/wp-config.php") && echo 'found' || echo 'not found'" 2>&1)
+    wp_path_check=$(ssh_exec_output "test -f $(printf %q "$REMOTE_WP_PATH/wp-config.php") && echo 'found' || echo 'not found'")
 
     if [[ "$wp_path_check" != "found" ]]; then
         echo -e "${RED}❌ wp-config.php not found at $REMOTE_WP_PATH${NC}" >&2

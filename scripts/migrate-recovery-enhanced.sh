@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # migrate-recovery-enhanced.sh — Complete recovery workflow with advanced options
 # Usage: ./migrate-recovery-enhanced.sh [OPTIONS] /path/to/site "old-url" "new-url"
 #

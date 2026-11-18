@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # WordPress Database Migration - Dependency Verification Script
 # Verifies all required and optional dependencies for wp-db-migrate

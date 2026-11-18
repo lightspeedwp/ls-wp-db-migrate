@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # start-server.sh — Start WordPress Studio server
 # Usage: ./start-server.sh /path/to/studio/site
 

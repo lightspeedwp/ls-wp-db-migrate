@@ -296,3 +296,75 @@ describe('host keys are never accepted automatically (LS-4796)', () => {
     expect(result.stderr).toContain('ssh-keyscan -p 22 host.example');
   });
 });
+
+describe('ssh errors stay visible (LS-4799)', () => {
+  test('ssh_exec_output keeps stdout clean and passes stderr through', () => {
+    const binDir = writeFakeSsh(
+      [
+        "echo 'Permission denied (publickey).' >&2",
+        "echo 'https://example.com'",
+      ].join('\n'),
+    );
+    const result = runWithFakeSsh(
+      [
+        "ssh_configure 'dev@host.example' '/srv/www'",
+        'url=$(ssh_get_site_url)',
+        'echo "URL=[$url]"',
+      ].join('\n'),
+      binDir,
+    );
+
+    expect(result.stdout).toContain('URL=[https://example.com]');
+    expect(result.stderr).toContain('Permission denied (publickey).');
+  });
+
+  test('ssh_test_connection shows why the connection failed', () => {
+    const binDir = writeFakeSsh(
+      [
+        "echo 'ssh: Could not resolve hostname host.example: nodename nor servname provided' >&2",
+        'exit 255',
+      ].join('\n'),
+    );
+    const result = runWithFakeSsh(
+      "ssh_test_connection 'dev@host.example' '/srv/www'",
+      binDir,
+    );
+
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain('Failed to connect');
+    expect(result.stderr).toContain('Could not resolve hostname');
+  });
+});
+
+describe('Bash version guard (LS-4799)', () => {
+  const oldBash = '/bin/bash';
+  const version = fs.existsSync(oldBash)
+    ? spawnSync(oldBash, ['-c', 'echo ${BASH_VERSINFO[0]}'], {
+      encoding: 'utf8',
+    }).stdout.trim()
+    : '';
+  const runIfOldBash = version !== '' && Number(version) < 4 ? test : test.skip;
+
+  runIfOldBash('sourcing lib-ssh.sh under Bash 3 fails with a clear message', () => {
+    const result = spawnSync(
+      oldBash,
+      ['-c', `source "${libPath}" || echo GUARD_RETURNED`],
+      { encoding: 'utf8' },
+    );
+
+    expect(result.stderr).toContain('needs Bash 4.2 or later');
+    expect(result.stdout).toContain('GUARD_RETURNED');
+  });
+
+  test('every script uses /usr/bin/env bash', () => {
+    const dir = path.join(__dirname, '..');
+    const shebangs = fs
+      .readdirSync(dir)
+      .filter((f) => f.endsWith('.sh'))
+      .map((f) => [f, fs.readFileSync(path.join(dir, f), 'utf8').split('\n')[0]]);
+
+    for (const [file, line] of shebangs) {
+      expect(`${file}: ${line}`).toBe(`${file}: #!/usr/bin/env bash`);
+    }
+  });
+});
