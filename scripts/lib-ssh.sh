@@ -25,6 +25,24 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
+# Remote paths and table names are interpolated into a command that the remote
+# shell parses, so only allow characters that cannot change that command.
+# Absolute path: letters, digits, dot, underscore, slash, plus and hyphen.
+ssh_valid_remote_path() {
+    [[ "$1" =~ ^/[A-Za-z0-9._/+-]*$ ]]
+}
+
+# MySQL table name as WordPress uses it: letters, digits, underscore, dollar
+# and hyphen.
+ssh_valid_table_name() {
+    [[ "$1" =~ ^[A-Za-z0-9_$-]+$ ]]
+}
+
+# Print "cd <path>" with the configured remote path shell-quoted.
+ssh_remote_cd() {
+    printf 'cd %q' "$REMOTE_WP_PATH"
+}
+
 # Configure SSH connection
 ssh_configure() {
     local user_host="$1"
@@ -38,6 +56,16 @@ ssh_configure() {
         SSH_HOST="${user_host##*@}"
     else
         echo -e "${RED}Error: Expected format 'user@host', got '$user_host'${NC}" >&2
+        return 1
+    fi
+
+    if ! ssh_valid_remote_path "$wp_path"; then
+        echo -e "${RED}Error: Remote WordPress path must be absolute and use only letters, digits, '.', '_', '/', '+' or '-': '$wp_path'${NC}" >&2
+        return 1
+    fi
+
+    if [[ ! "$ssh_port" =~ ^[0-9]+$ ]]; then
+        echo -e "${RED}Error: SSH port must be a number, got '$ssh_port'${NC}" >&2
         return 1
     fi
 
@@ -148,7 +176,7 @@ ssh_check_wp_cli() {
 # Get remote database size
 ssh_get_db_size() {
     local output
-    output=$(ssh_exec_output "cd '$REMOTE_WP_PATH' && wp db size --format=bytes" 2>&1)
+    output=$(ssh_exec_output "$(ssh_remote_cd) && wp db size --format=bytes" 2>&1)
 
     if [[ -z "$output" ]] || [[ "$output" == *"Error"* ]]; then
         echo -e "${YELLOW}Note: Could not determine remote database size${NC}" >&2
@@ -171,14 +199,24 @@ ssh_export_db() {
     echo -e "${BLUE}Exporting database from $SSH_HOST:$wp_path...${NC}"
 
     # Build wp db export command
-    local export_cmd="cd '$REMOTE_WP_PATH' && wp db export"
+    local export_cmd
+    export_cmd="$(ssh_remote_cd) && wp db export"
 
-    # Add table exclusions if provided
+    # Add table exclusions if provided. WP-CLI takes one comma-separated
+    # --exclude_tables option; every name is checked before it is used.
     if [[ -n "$exclude_tables" ]]; then
-        # Convert comma-separated list to wp db export format
-        local tables_to_skip
-        tables_to_skip=$(echo "$exclude_tables" | tr ',' '\n' | sed 's/^/--skip-tables=/' | tr '\n' ' ')
-        export_cmd="$export_cmd $tables_to_skip"
+        local table
+        local -a tables=()
+        IFS=',' read -r -a tables <<< "$exclude_tables"
+        for table in "${tables[@]}"; do
+            if ! ssh_valid_table_name "$table"; then
+                echo -e "${RED}Error: Invalid table name in exclusion list: '$table'${NC}" >&2
+                return 1
+            fi
+        done
+        local joined
+        joined=$(IFS=','; echo "${tables[*]}")
+        export_cmd="$export_cmd --exclude_tables=$joined"
     fi
 
     export_cmd="$export_cmd -"
@@ -215,7 +253,7 @@ ssh_export_db() {
 # Get remote WordPress version
 ssh_get_wp_version() {
     local output
-    output=$(ssh_exec_output "cd '$REMOTE_WP_PATH' && wp core version" 2>&1)
+    output=$(ssh_exec_output "$(ssh_remote_cd) && wp core version" 2>&1)
 
     if [[ -z "$output" ]] || [[ "$output" == *"Error"* ]]; then
         echo "unknown"
@@ -228,7 +266,7 @@ ssh_get_wp_version() {
 # Get remote site URL
 ssh_get_site_url() {
     local output
-    output=$(ssh_exec_output "cd '$REMOTE_WP_PATH' && wp option get siteurl" 2>&1)
+    output=$(ssh_exec_output "$(ssh_remote_cd) && wp option get siteurl" 2>&1)
 
     if [[ -z "$output" ]] || [[ "$output" == *"Error"* ]]; then
         echo "unknown"
@@ -246,7 +284,7 @@ ssh_verify_wordpress() {
 
     # Check WordPress installation
     local wp_path_check
-    wp_path_check=$(ssh_exec_output "test -f '$REMOTE_WP_PATH/wp-config.php' && echo 'found' || echo 'not found'" 2>&1)
+    wp_path_check=$(ssh_exec_output "test -f $(printf %q "$REMOTE_WP_PATH/wp-config.php") && echo 'found' || echo 'not found'" 2>&1)
 
     if [[ "$wp_path_check" != "found" ]]; then
         echo -e "${RED}❌ wp-config.php not found at $REMOTE_WP_PATH${NC}" >&2
@@ -258,6 +296,9 @@ ssh_verify_wordpress() {
 }
 
 # Export functions
+export -f ssh_valid_remote_path
+export -f ssh_valid_table_name
+export -f ssh_remote_cd
 export -f ssh_configure
 export -f ssh_test_connection
 export -f ssh_exec
