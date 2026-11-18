@@ -46,7 +46,9 @@ register the sub-skills individually; see [installation](docs/INSTALLATION.md).
 - Inspect the installed CLI's help before using version-dependent Studio commands.
   Inspect helpers before relying on them: `migrate-recovery*.sh` are post-import
   helpers, not import engines. The clone orchestrator does not implement a complete
-  local-file import, and its dry-run path can still attempt remote SSH operations.
+  local-file import. Its SSH export stage is not called from `main`, and in
+  dry-run mode it makes no SSH connection. The scripts need Bash 4.2+
+  (`brew install bash` on macOS) and refuse unknown SSH host keys.
 - Stop on command failure or blocking findings. Report completed steps, pending
   checks, backup/output paths and errors. Do not infer success from a banner or
   promise automatic rollback, performance gains or row-count parity without evidence.

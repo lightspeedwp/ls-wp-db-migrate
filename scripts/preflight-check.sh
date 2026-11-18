@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # preflight-check.sh — Verify all dependencies before migration
 # Usage: ./preflight-check.sh
 

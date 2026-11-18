@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # migrate-recovery.sh — Complete recovery workflow after import
 # Guides you through: verify → replace URLs → start server
 # Usage: ./migrate-recovery.sh /path/to/studio/site "old-url" "new-url"

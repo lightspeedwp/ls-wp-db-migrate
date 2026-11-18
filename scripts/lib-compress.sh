@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # lib-compress.sh — Handle compression/decompression with progress tracking
 # Reduces file size by 70-80% for faster transfers
 #

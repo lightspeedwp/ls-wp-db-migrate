@@ -53,6 +53,10 @@ entries. No plugin installation or global configuration change is performed here
 
 Node.js runs `lib/sql-tool.cjs`; Studio CLI handles local imports and bundled WP-CLI.
 Remote export workflows additionally need authorised SSH access and remote WP-CLI.
+The remote host's key must already be in `~/.ssh/known_hosts`, or in the file
+named by `SSH_KNOWN_HOSTS` or `--ssh-known-hosts`: the scripts refuse unknown or
+changed host keys. Check the fingerprint with the host's administrator before
+adding it.
 Check the installed CLI's help before migrating. Install development dependencies
 with `npm ci` only when running the Jest suite.
 

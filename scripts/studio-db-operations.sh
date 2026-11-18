@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # studio-db-operations.sh — Database operations using WordPress Studio CLI
 # Handles backup, restore, export, and integration with migration scripts
 # Usage: ./studio-db-operations.sh <operation> [arguments...]

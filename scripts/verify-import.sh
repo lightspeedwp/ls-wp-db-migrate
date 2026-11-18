@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # verify-import.sh — Verify database import success
 # Usage: ./verify-import.sh /path/to/studio/site
 

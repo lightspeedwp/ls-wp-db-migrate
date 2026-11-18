@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # lib-table-analyzer.sh — Analyze tables and suggest exclusions
 # Helps reduce migration time by identifying and excluding non-critical large tables
 #
@@ -6,6 +6,15 @@
 #   source lib-table-analyzer.sh
 #   analyze_dump /path/to/dump.sql
 #   suggest_exclusions  # Returns list of excludable tables
+
+# These libraries use `declare -g` and associative arrays, which need Bash 4.2+.
+# macOS ships Bash 3.2 as /bin/bash; stop with a clear message instead of
+# failing later on a confusing syntax error.
+if (( BASH_VERSINFO[0] < 4 || (BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] < 2) )); then
+    echo "Error: ${BASH_SOURCE[0]##*/} needs Bash 4.2 or later; this is Bash ${BASH_VERSION}." >&2
+    echo "On macOS: brew install bash, then run the script with that bash (or put it first on PATH)." >&2
+    return 1 2>/dev/null || exit 1
+fi
 
 # Table patterns that are commonly safe to exclude
 declare -A SAFE_EXCLUDES=(

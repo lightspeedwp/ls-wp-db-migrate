@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # lib-error-recovery.sh — Error recovery and rollback for WordPress database migration
 # Provides automatic recovery on import failure, partial import handling, and crash recovery
 #

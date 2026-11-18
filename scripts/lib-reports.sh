@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # lib-reports.sh — Reports and analytics for WordPress database migration
 # Generates migration statistics, performance logs, and audit trails
 #
@@ -17,6 +17,15 @@
 #   reports_init "/path/to/reports"
 #   reports_log_stage "export" 120 "success"
 #   reports_track_table "wp_posts" 1000 5242880
+
+# These libraries use `declare -g` and associative arrays, which need Bash 4.2+.
+# macOS ships Bash 3.2 as /bin/bash; stop with a clear message instead of
+# failing later on a confusing syntax error.
+if (( BASH_VERSINFO[0] < 4 || (BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] < 2) )); then
+    echo "Error: ${BASH_SOURCE[0]##*/} needs Bash 4.2 or later; this is Bash ${BASH_VERSION}." >&2
+    echo "On macOS: brew install bash, then run the script with that bash (or put it first on PATH)." >&2
+    return 1 2>/dev/null || exit 1
+fi
 
 set -euo pipefail
 

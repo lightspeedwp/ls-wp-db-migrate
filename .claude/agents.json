@@ -6,7 +6,7 @@
       "name": "WordPress Database Migrator",
       "description": "Migrates WordPress databases from MySQL/MariaDB to SQLite for WordPress Studio",
       "type": "skill",
-      "path": "skill/",
+      "path": "./",
       "main": "SKILL.md",
       "capabilities": [
         "database-export",
@@ -20,34 +20,34 @@
         {
           "name": "migrate-recovery.sh",
           "description": "Complete migration workflow with confirmations",
-          "path": "skill/scripts/migrate-recovery.sh"
+          "path": "scripts/migrate-recovery.sh"
         },
         {
           "name": "migrate-recovery-enhanced.sh",
           "description": "Advanced migration with dry-run, verbose, and force modes",
-          "path": "skill/scripts/migrate-recovery-enhanced.sh"
+          "path": "scripts/migrate-recovery-enhanced.sh"
         },
         {
           "name": "preflight-check.sh",
           "description": "Verify all dependencies are installed",
-          "path": "skill/scripts/preflight-check.sh"
+          "path": "scripts/preflight-check.sh"
         },
         {
           "name": "verify-import.sh",
           "description": "Validate that import succeeded",
-          "path": "skill/scripts/verify-import.sh"
+          "path": "scripts/verify-import.sh"
         },
         {
           "name": "replace-urls.sh",
           "description": "Replace URLs in database",
-          "path": "skill/scripts/replace-urls.sh"
+          "path": "scripts/replace-urls.sh"
         }
       ]
     }
   ],
   "relatedSkills": [
     {
-      "name": "ls-hosting-sync-live-to-staging",
+      "name": "ls-hosting-sync-website",
       "description": "Export database from production/staging",
       "usage": "Before migration: use to get database backup"
     },
@@ -78,7 +78,7 @@
       "description": "Migrate staging database to local WordPress Studio site",
       "steps": [
         "Run preflight check",
-        "Use ls-hosting-sync-live-to-staging to get database",
+        "Use ls-hosting-sync-website to get database",
         "Run migrate-recovery.sh with site path and URLs",
         "Verify import succeeded",
         "Configure media paths in wp-config.php"
@@ -99,7 +99,7 @@
       "name": "Complete End-to-End Workflow",
       "description": "Full production to local to staging workflow",
       "steps": [
-        "Use ls-hosting-sync-live-to-staging to get database",
+        "Use ls-hosting-sync-website to get database",
         "Use ls-hosting-fetch-tools to get plugins/themes",
         "Run wp-db-migrate to import to local",
         "Develop locally using WordPress agent skills",

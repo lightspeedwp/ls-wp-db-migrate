@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # lib-config.sh — Configuration file parser and environment manager
 # Load settings from .wp-db-migrate.conf and environment variable overrides
 #
@@ -8,6 +8,15 @@
 #   config_get "from_url"              # Get value with fallback
 #   config_require "from_url"          # Require value or fail
 #   config_apply_env_overrides         # Merge WP_DB_MIGRATE_* vars
+
+# These libraries use `declare -g` and associative arrays, which need Bash 4.2+.
+# macOS ships Bash 3.2 as /bin/bash; stop with a clear message instead of
+# failing later on a confusing syntax error.
+if (( BASH_VERSINFO[0] < 4 || (BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] < 2) )); then
+    echo "Error: ${BASH_SOURCE[0]##*/} needs Bash 4.2 or later; this is Bash ${BASH_VERSION}." >&2
+    echo "On macOS: brew install bash, then run the script with that bash (or put it first on PATH)." >&2
+    return 1 2>/dev/null || exit 1
+fi
 
 # Configuration storage (associative array, global scope)
 declare -A CONFIG=()

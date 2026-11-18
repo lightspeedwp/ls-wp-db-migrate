@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # lib-progress.sh — Progress tracking and visual feedback library
 # Provides progress bars, spinners, and stage tracking for long-running operations
 #
@@ -11,6 +11,15 @@
 #   spinner_complete "Validation passed"
 #   stage_start 1 "Export"
 #   stage_complete
+
+# These libraries use `declare -g` and associative arrays, which need Bash 4.2+.
+# macOS ships Bash 3.2 as /bin/bash; stop with a clear message instead of
+# failing later on a confusing syntax error.
+if (( BASH_VERSINFO[0] < 4 || (BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] < 2) )); then
+    echo "Error: ${BASH_SOURCE[0]##*/} needs Bash 4.2 or later; this is Bash ${BASH_VERSION}." >&2
+    echo "On macOS: brew install bash, then run the script with that bash (or put it first on PATH)." >&2
+    return 1 2>/dev/null || exit 1
+fi
 
 # shellcheck disable=SC2034
 # Progress state

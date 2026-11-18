@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # lib-studio.sh — Wrapper library for WordPress Studio CLI operations
 # Provides common functions for site management, backups, database operations, and more
 # Source this file: source ./lib-studio.sh
