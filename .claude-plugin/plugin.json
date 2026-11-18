@@ -9,6 +9,7 @@
   "repository": "https://github.com/lightspeedwp/ls-wp-db-migrate",
   "homepage": "https://github.com/lightspeedwp/ls-wp-db-migrate",
   "skills": [
-    "./"
+    "./",
+    "./sub-skills/"
   ]
 }
