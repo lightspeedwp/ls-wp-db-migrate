@@ -232,3 +232,67 @@ describe('ssh_export_db keeps stderr out of the dump (LS-4795)', () => {
     expect(result.stdout).toContain('Database exported');
   });
 });
+
+describe('host keys are never accepted automatically (LS-4796)', () => {
+  test('every ssh call uses StrictHostKeyChecking=yes', () => {
+    const binDir = writeFakeSsh();
+    const out = path.join(tmpDir, 'out.sql');
+    runWithFakeSsh(
+      `ssh_export_db 'dev@host.example' '/srv/www' '${out}'`,
+      binDir,
+    );
+
+    const args = recordedArgs();
+    expect(args).toContain('StrictHostKeyChecking=yes');
+    expect(args.join(' ')).not.toContain('accept-new');
+  });
+
+  test('the library source no longer contains accept-new', () => {
+    expect(fs.readFileSync(libPath, 'utf8')).not.toContain('accept-new');
+  });
+
+  test('SSH_KNOWN_HOSTS is passed as UserKnownHostsFile', () => {
+    const binDir = writeFakeSsh();
+    const knownHosts = path.join(tmpDir, 'known_hosts');
+    fs.writeFileSync(knownHosts, '');
+    const out = path.join(tmpDir, 'out.sql');
+    runWithFakeSsh(
+      `ssh_export_db 'dev@host.example' '/srv/www' '${out}'`,
+      binDir,
+      { SSH_KNOWN_HOSTS: knownHosts },
+    );
+
+    expect(recordedArgs()).toContain(`UserKnownHostsFile=${knownHosts}`);
+  });
+
+  test('a missing SSH_KNOWN_HOSTS file stops before ssh runs', () => {
+    const binDir = writeFakeSsh();
+    const result = runWithFakeSsh(
+      'ssh_configure \'dev@host.example\' \'/srv/www\'',
+      binDir,
+      { SSH_KNOWN_HOSTS: path.join(tmpDir, 'missing') },
+    );
+
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain('SSH_KNOWN_HOSTS file not found');
+  });
+
+  test('a refused host key explains how to check the fingerprint', () => {
+    const binDir = writeFakeSsh(
+      [
+        "echo 'No ED25519 host key is known for host.example and you have requested strict checking.' >&2",
+        "echo 'Host key verification failed.' >&2",
+        'exit 255',
+      ].join('\n'),
+    );
+    const out = path.join(tmpDir, 'out.sql');
+    const result = runWithFakeSsh(
+      `ssh_export_db 'dev@host.example' '/srv/www' '${out}'`,
+      binDir,
+    );
+
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toContain('Host key verification failed');
+    expect(result.stderr).toContain('ssh-keyscan -p 22 host.example');
+  });
+});

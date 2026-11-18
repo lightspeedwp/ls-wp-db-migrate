@@ -17,6 +17,11 @@ declare -g SSH_KEY=""
 declare -g SSH_KEY_TYPE=""
 declare -g REMOTE_WP_PATH=""
 declare -g SSH_TIMEOUT=30
+# Optional known_hosts file holding the pinned keys for the intended hosts.
+# When empty, ssh uses ~/.ssh/known_hosts. Either way an unknown or changed
+# host key stops the connection; keys are never accepted automatically.
+declare -g SSH_KNOWN_HOSTS="${SSH_KNOWN_HOSTS:-}"
+declare -g -a SSH_CMD=()
 
 # Color codes
 RED='\033[0;31m'
@@ -41,6 +46,24 @@ ssh_valid_table_name() {
 # Print "cd <path>" with the configured remote path shell-quoted.
 ssh_remote_cd() {
     printf 'cd %q' "$REMOTE_WP_PATH"
+}
+
+# Build the ssh command and its options in SSH_CMD.
+# StrictHostKeyChecking=yes: ssh refuses a host whose key is not already in
+# known_hosts, instead of trusting it on first use.
+ssh_build_cmd() {
+    SSH_CMD=(ssh)
+    SSH_CMD+=(-o "ConnectTimeout=$SSH_TIMEOUT")
+    SSH_CMD+=(-o StrictHostKeyChecking=yes)
+    SSH_CMD+=(-p "$SSH_PORT")
+
+    if [[ -n "$SSH_KNOWN_HOSTS" ]]; then
+        SSH_CMD+=(-o "UserKnownHostsFile=$SSH_KNOWN_HOSTS")
+    fi
+
+    if [[ -n "$SSH_KEY" ]]; then
+        SSH_CMD+=(-i "$SSH_KEY")
+    fi
 }
 
 # Configure SSH connection
@@ -69,6 +92,11 @@ ssh_configure() {
         return 1
     fi
 
+    if [[ -n "$SSH_KNOWN_HOSTS" ]] && [[ ! -f "$SSH_KNOWN_HOSTS" ]]; then
+        echo -e "${RED}Error: SSH_KNOWN_HOSTS file not found: $SSH_KNOWN_HOSTS${NC}" >&2
+        return 1
+    fi
+
     REMOTE_WP_PATH="$wp_path"
     SSH_PORT="$ssh_port"
 
@@ -94,14 +122,8 @@ ssh_test_connection() {
     echo -e "${BLUE}Testing SSH connection to $SSH_HOST...${NC}"
 
     # Build SSH command with options
-    local ssh_cmd=(ssh)
-    ssh_cmd+=(-o "ConnectTimeout=$SSH_TIMEOUT")
-    ssh_cmd+=(-o StrictHostKeyChecking=accept-new)
-    ssh_cmd+=(-p "$SSH_PORT")
-
-    if [[ -n "$SSH_KEY" ]]; then
-        ssh_cmd+=(-i "$SSH_KEY")
-    fi
+    ssh_build_cmd
+    local -a ssh_cmd=("${SSH_CMD[@]}")
 
     # Test connection
     if ! "${ssh_cmd[@]}" "$SSH_USER@$SSH_HOST" "exit 0" 2>/dev/null; then
@@ -123,14 +145,8 @@ ssh_exec() {
     fi
 
     # Build SSH command
-    local ssh_cmd=(ssh)
-    ssh_cmd+=(-o "ConnectTimeout=$SSH_TIMEOUT")
-    ssh_cmd+=(-o StrictHostKeyChecking=accept-new)
-    ssh_cmd+=(-p "$SSH_PORT")
-
-    if [[ -n "$SSH_KEY" ]]; then
-        ssh_cmd+=(-i "$SSH_KEY")
-    fi
+    ssh_build_cmd
+    local -a ssh_cmd=("${SSH_CMD[@]}")
 
     # Execute remote command
     "${ssh_cmd[@]}" "$SSH_USER@$SSH_HOST" "$cmd" 2>&1
@@ -146,14 +162,8 @@ ssh_exec_output() {
     fi
 
     # Build SSH command
-    local ssh_cmd=(ssh)
-    ssh_cmd+=(-o "ConnectTimeout=$SSH_TIMEOUT")
-    ssh_cmd+=(-o StrictHostKeyChecking=accept-new)
-    ssh_cmd+=(-p "$SSH_PORT")
-
-    if [[ -n "$SSH_KEY" ]]; then
-        ssh_cmd+=(-i "$SSH_KEY")
-    fi
+    ssh_build_cmd
+    local -a ssh_cmd=("${SSH_CMD[@]}")
 
     # Execute and capture output
     "${ssh_cmd[@]}" "$SSH_USER@$SSH_HOST" "$cmd" 2>/dev/null
@@ -187,12 +197,25 @@ ssh_get_db_size() {
     echo "$output"
 }
 
+# Explain what to do when ssh refuses an unknown or changed host key.
+ssh_host_key_hint() {
+    echo -e "${YELLOW}The host key for $SSH_HOST is not in known_hosts, or it changed.${NC}" >&2
+    echo "  Keys are not accepted automatically. Get the host's fingerprint from its" >&2
+    echo "  administrator or hosting panel, compare it with:" >&2
+    echo "    ssh-keyscan -p $SSH_PORT $SSH_HOST | ssh-keygen -lf -" >&2
+    echo "  and only when they match, add the key to ~/.ssh/known_hosts (or to the" >&2
+    echo "  file named in SSH_KNOWN_HOSTS)." >&2
+}
+
 # Print what ssh or the remote command wrote to stderr, if anything.
 ssh_report_stderr() {
     local err_file="$1"
     if [[ -s "$err_file" ]]; then
         echo -e "${YELLOW}ssh/WP-CLI said (full text in $err_file):${NC}" >&2
         sed 's/^/  /' "$err_file" >&2
+        if grep -q 'Host key verification failed' "$err_file"; then
+            ssh_host_key_hint
+        fi
     fi
 }
 
@@ -231,14 +254,8 @@ ssh_export_db() {
     export_cmd="$export_cmd -"
 
     # Build SSH command
-    local ssh_cmd=(ssh)
-    ssh_cmd+=(-o "ConnectTimeout=$SSH_TIMEOUT")
-    ssh_cmd+=(-o StrictHostKeyChecking=accept-new)
-    ssh_cmd+=(-p "$SSH_PORT")
-
-    if [[ -n "$SSH_KEY" ]]; then
-        ssh_cmd+=(-i "$SSH_KEY")
-    fi
+    ssh_build_cmd
+    local -a ssh_cmd=("${SSH_CMD[@]}")
 
     # Execute remote export. Only stdout is the dump: ssh and WP-CLI
     # messages on stderr go to a separate file and never into the SQL.
@@ -330,6 +347,8 @@ ssh_verify_wordpress() {
 export -f ssh_valid_remote_path
 export -f ssh_valid_table_name
 export -f ssh_remote_cd
+export -f ssh_build_cmd
+export -f ssh_host_key_hint
 export -f ssh_configure
 export -f ssh_test_connection
 export -f ssh_exec

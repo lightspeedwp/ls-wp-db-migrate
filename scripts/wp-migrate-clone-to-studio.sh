@@ -120,6 +120,8 @@ OPTIONS:
   --ssh-user USER        SSH user (default: deploy)
   --ssh-port PORT        SSH port (default: 22)
   --ssh-key PATH         Path to SSH private key (optional)
+  --ssh-known-hosts PATH known_hosts file with the host's pinned key (optional;
+                         default ~/.ssh/known_hosts). Unknown keys are refused.
   --wp-path PATH         Remote WordPress path (e.g., /var/www/html)
   --dry-run              Analyze without making changes
   --verbose              Show detailed output
@@ -245,6 +247,10 @@ parse_args() {
             --ssh-key)
                 # shellcheck disable=SC2034
                 SSH_KEY="$2"
+                shift 2
+                ;;
+            --ssh-known-hosts)
+                SSH_KNOWN_HOSTS="$2"
                 shift 2
                 ;;
             --wp-path)
