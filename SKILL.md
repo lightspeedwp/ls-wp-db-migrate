@@ -5,7 +5,7 @@ description: Prepare and migrate MySQL or MariaDB WordPress exports into local W
 
 # LightSpeed WordPress database migration
 
-This repository is the parent Claude skill. Its focused sub-skills live in `skills/`
+This repository is the parent Claude skill. Its focused sub-skills live in `sub-skills/`
 and share `lib/`, `scripts/` and `docs/` at the repository root.
 
 ## Route the request
@@ -18,11 +18,11 @@ request; a complete migration follows preflight → prepare → migrate → veri
 
 | Stage | Read | Use for |
 | --- | --- | --- |
-| `preflight` | [Preflight](SKILL.md) | Dependencies, source tables, URLs and target prefix |
-| `prepare` | [Prepare](SKILL.md) | Sanitising an export and choosing exclusions |
-| `migrate` | [Migrate](SKILL.md) | Backing up and importing into a local Studio site |
-| `verify` | [Verify](SKILL.md) | URL replacement, counts and site checks |
-| `recover` | [Recover](SKILL.md) | Diagnosing a failed import and restoring a backup |
+| `preflight` | [Preflight](sub-skills/ls-wp-db-preflight/SKILL.md) | Dependencies, source tables, URLs and target prefix |
+| `prepare` | [Prepare](sub-skills/ls-wp-db-prepare/SKILL.md) | Sanitising an export and choosing exclusions |
+| `migrate` | [Migrate](sub-skills/ls-wp-db-migrate-import/SKILL.md) | Backing up and importing into a local Studio site |
+| `verify` | [Verify](sub-skills/ls-wp-db-verify/SKILL.md) | URL replacement, counts and site checks |
+| `recover` | [Recover](sub-skills/ls-wp-db-recover/SKILL.md) | Diagnosing a failed import and restoring a backup |
 
 For example: `/ls-wp-db-migrate preflight /path/to/export.sql /path/to/studio-site`.
 These are routed arguments, not nested slash commands. Plugin installations also
