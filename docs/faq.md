@@ -6,7 +6,8 @@ Quick answers to common questions about wp-db-migrate.
 
 ### What is wp-db-migrate?
 
-A tool that automates WordPress database migration from MySQL/MariaDB to SQLite in WordPress Studio. It handles export, optimization, compression, import, and validation in one command.
+A tool that automates WordPress database migration from MySQL/MariaDB to SQLite in WordPress Studio.
+It handles export, optimization, compression, import, and validation in one command.
 
 ### Do I need this tool?
 
@@ -460,7 +461,7 @@ Yes, by default:
 
 Reports are saved to your Studio site:
 
-```
+```text
 ~/Studio/my-site/.reports/
 ├── migration-report.md     # Human-readable summary
 ├── metrics.json           # Machine-readable data

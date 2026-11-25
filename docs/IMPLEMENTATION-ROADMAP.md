@@ -54,7 +54,7 @@ git clone https://github.com/wordPress/agent-skills.git wordpress-agent
 
 **Then restart Claude Code and enable in Settings → Skills**
 
-````
+````text
 
 ---
 
@@ -165,7 +165,7 @@ To add to documentation, include these suggested use patterns:
 
 #### Prompt 1: Basic Migration
 
-```
+```text
 /wp-migrate-clone-to-studio
   --from https://staging.example.com
   --to ~/Studio/my-project
@@ -173,7 +173,7 @@ To add to documentation, include these suggested use patterns:
 
 #### Prompt 2: With Database Reduction
 
-```
+```text
 /wp-migrate-clone-to-studio
   --from https://staging.example.com
   --to ~/Studio/my-project
@@ -182,7 +182,7 @@ To add to documentation, include these suggested use patterns:
 
 #### Prompt 3: From Remote Server
 
-```
+```text
 /wp-migrate-clone-to-studio
   --from https://staging.example.com
   --to ~/Studio/my-project
@@ -193,7 +193,7 @@ To add to documentation, include these suggested use patterns:
 
 #### Prompt 4: Dry-Run First
 
-```
+```text
 /wp-migrate-clone-to-studio
   --from https://staging.example.com
   --to ~/Studio/my-project

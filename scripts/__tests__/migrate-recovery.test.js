@@ -50,7 +50,7 @@ describe('migrate-recovery.sh', () => {
   test('should complete workflow execution', () => {
     const sitePath = createMockStudioSite(tempDir);
     const startTime = Date.now();
-    const result = executeScript('migrate-recovery.sh', [
+    executeScript('migrate-recovery.sh', [
       sitePath,
       'https://old.com',
       'https://new.com',

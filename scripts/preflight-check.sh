@@ -17,12 +17,12 @@ check_command() {
 
     if command -v "$cmd" &> /dev/null; then
         echo "✅ $display_name"
-        ((CHECKS_PASSED++))
+        CHECKS_PASSED=$((CHECKS_PASSED + 1))
         return 0
     else
         echo "❌ $display_name — NOT FOUND"
         echo "   Install it to proceed (check the README)"
-        ((CHECKS_FAILED++))
+        CHECKS_FAILED=$((CHECKS_FAILED + 1))
         return 1
     fi
 }
@@ -34,25 +34,25 @@ check_directory() {
 
     if [ -d "$path" ]; then
         echo "✅ $display_name"
-        ((CHECKS_PASSED++))
+        CHECKS_PASSED=$((CHECKS_PASSED + 1))
         return 0
     else
         echo "❌ $display_name — NOT FOUND at $path"
-        ((CHECKS_FAILED++))
+        CHECKS_FAILED=$((CHECKS_FAILED + 1))
         return 1
     fi
 }
 
 echo "📦 Required Commands:"
-check_command "studio" "WordPress Studio CLI"
-check_command "wp" "WordPress CLI"
-check_command "bash" "Bash shell"
-check_command "grep" "grep"
-check_command "sed" "sed"
+check_command "studio" "WordPress Studio CLI" || true
+check_command "wp" "WordPress CLI" || true
+check_command "bash" "Bash shell" || true
+check_command "grep" "grep" || true
+check_command "sed" "sed" || true
 
 echo ""
 echo "📍 Directories:"
-check_directory "$HOME/.studio" "Studio config directory"
+check_directory "$HOME/.studio" "Studio config directory" || true
 
 echo ""
 echo "🧪 Optional (but recommended):"

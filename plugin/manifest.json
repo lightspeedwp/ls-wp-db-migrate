@@ -3,7 +3,7 @@
   "name": "WordPress Database Migration",
   "id": "wp-db-migrate",
   "description": "Migrate WordPress databases from MySQL/MariaDB to SQLite in WordPress Studio with smart table exclusion, safe import workflows, URL replacement, and comprehensive validation.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Ash Shaw",
   "author_email": "ashley@lightspeedwp.agency",
   "homepage": "https://github.com/lightspeedwp/ls-wp-db-migrate",

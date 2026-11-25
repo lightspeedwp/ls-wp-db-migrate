@@ -4,7 +4,9 @@ Track migration performance, understand what happened, and generate reports for 
 
 ## Overview
 
-Every migration generates detailed analytics—how long each stage took, compression effectiveness, import speed, table statistics. Use these reports to optimize future migrations, document changes for your team, and integrate with CI/CD systems.
+Every migration generates detailed analytics—how long each stage took, compression effectiveness,
+import speed, table statistics. Use these reports to optimize future migrations, document changes
+for your team, and integrate with CI/CD systems.
 
 ## Enabling Reports
 
@@ -159,7 +161,7 @@ wp_termmeta,1200,93840,0.09
 
 **Total Duration:** Total time for entire migration (sum of all stages)
 
-```
+```text
 = export_time + analyze_time + compress_time + import_time + validate_time
 = 180 + 30 + 120 + 480 + 37 = 847 seconds (~14 minutes)
 ```
@@ -176,7 +178,7 @@ wp_termmeta,1200,93840,0.09
 
 **Compression Ratio:** How much space was saved
 
-```
+```text
 Compression Ratio = (1 - compressed_size / original_size) × 100
                   = (1 - 108 MB / 384 MB) × 100
                   = 72.5%
@@ -190,7 +192,7 @@ Compression Ratio = (1 - compressed_size / original_size) × 100
 
 **Size Savings:**
 
-```
+```text
 Original:  384 MB
 Compressed: 108 MB
 Saved:     276 MB (72% reduction)
@@ -200,7 +202,7 @@ Saved:     276 MB (72% reduction)
 
 **Import Throughput:** How fast data was imported
 
-```
+```text
 Import Throughput = database_size / import_time
                   = 384 MB / 480 seconds
                   = 2.45 MB/second
@@ -214,7 +216,7 @@ Import Throughput = database_size / import_time
 
 **Typical Performance:**
 
-```
+```text
 Single-threaded:  0.3-0.5 MB/s
 With --jobs 4:    2.0-3.0 MB/s
 With --jobs 8:    3.0-5.0 MB/s
@@ -225,7 +227,7 @@ Parallel max:     4.0-6.0 MB/s
 
 **Table Size Distribution:** Which tables use most space
 
-```
+```text
 wp_postmeta: 124.8 MB (33% of total)
 wp_posts:     52.3 MB (14% of total)
 wp_comments:   3.2 MB (1% of total)
@@ -241,7 +243,7 @@ wp_options:    0.9 MB (<1% of total)
 
 **Row Count Analysis:**
 
-```
+```text
 Total Rows: 1,250,000
 Average per table: 13,297 rows
 Largest: wp_postmeta (45,000 rows)
@@ -315,7 +317,7 @@ open ~/Studio/my-site/.reports/table-statistics.csv
 
 **Question:** Is compression worth the time investment?
 
-```
+```text
 Scenario 1: Without compression
 - Database size: 384 MB
 - Transfer time: ~120s at 3.2 MB/s
@@ -335,7 +337,7 @@ Scenario 2: With compression
 
 **Baseline targets:**
 
-```
+```text
 Database Size: 100-500 MB
 - Export: 2-5 min
 - Compress: 1-2 min

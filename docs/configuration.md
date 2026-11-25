@@ -4,7 +4,8 @@ Master the `.wp-db-migrate.conf` configuration file to save time on repeated mig
 
 ## What is a Configuration Profile?
 
-A configuration profile is a simple text file (`.wp-db-migrate.conf`) that stores your migration settings. Instead of typing the same options every time, you create a file once and reuse it.
+A configuration profile is a simple text file (`.wp-db-migrate.conf`) that stores your migration
+settings. Instead of typing the same options every time, you create a file once and reuse it.
 
 **Benefits:**
 
@@ -93,7 +94,7 @@ VERBOSE=false                            # Show detailed output
 
 When you run a migration, settings are applied in this order (highest priority first):
 
-```
+```text
 1. Command-line flags      (highest priority)
    ./wp-migrate-clone-to-studio.sh --use-config --jobs 8
                                                    ↑↑↑↑↑ overrides config

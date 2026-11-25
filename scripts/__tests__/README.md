@@ -13,28 +13,32 @@ Comprehensive test coverage for the wp-db-migrate skill and plugin.
 ## Running Tests
 
 ### Run All Tests
+
 ```bash
 npm test
 ```
 
 ### Run Specific Test File
+
 ```bash
 npm test -- migrate-recovery.test.js
 ```
 
 ### Run with Coverage Report
+
 ```bash
 npm test -- --coverage
 ```
 
 ### Watch Mode (auto-rerun on changes)
+
 ```bash
 npm test -- --watch
 ```
 
 ## Test Organization
 
-```
+```text
 __tests__/
 ├── unit/
 │   ├── lib-ssh.test.js           # SSH operations
@@ -58,6 +62,7 @@ __tests__/
 ## Key Test Scenarios
 
 ### Unit Tests
+
 - ✅ SSH connection validation
 - ✅ Compression/decompression
 - ✅ Database export parsing
@@ -65,6 +70,7 @@ __tests__/
 - ✅ Error detection and recovery
 
 ### Integration Tests
+
 - ✅ Full 5-stage workflow
 - ✅ Table exclusion
 - ✅ Backup and rollback
@@ -76,6 +82,7 @@ __tests__/
 - ✅ Corrupted database handling
 
 ### Coverage Goals
+
 - **Line Coverage**: > 90%
 - **Branch Coverage**: > 85%
 - **Function Coverage**: > 90%
@@ -83,6 +90,7 @@ __tests__/
 ## Adding New Tests
 
 ### Test Structure
+
 ```javascript
 describe('Feature Name', () => {
   beforeEach(() => {
@@ -107,6 +115,7 @@ describe('Feature Name', () => {
 ```
 
 ### Running Test Suite Before Commit
+
 ```bash
 npm run test:all      # Run all tests + lint + coverage
 npm run test:unit     # Unit tests only
@@ -116,12 +125,15 @@ npm run test:int      # Integration tests only
 ## Test Fixtures
 
 ### Sample Databases
+
 - `fixtures/sample-export.sql` — 50 MB MySQL export (< 2 sec to process)
 - `fixtures/large-export.sql.gz` — 500 MB gzipped export (realistic size)
 - `fixtures/corrupted-export.sql` — Intentionally broken SQL for error testing
 
 ### Mock Responses
+
 All external calls are mocked to avoid needing:
+
 - Real WordPress Studio installed
 - Real SSH access to servers
 - Real databases
@@ -129,21 +141,25 @@ All external calls are mocked to avoid needing:
 ## Debugging Tests
 
 ### See Detailed Output
+
 ```bash
 npm test -- --verbose
 ```
 
 ### Run Single Test
+
 ```bash
 npm test -- migrate-recovery.test.js --testNamePattern="should handle"
 ```
 
 ### Enable Debugging
+
 ```bash
 DEBUG=* npm test -- migrate-recovery.test.js
 ```
 
 ### VS Code Debugging
+
 1. Set breakpoint in test file
 2. Run: `node --inspect-brk node_modules/.bin/jest --runInBand`
 3. Open `chrome://inspect` in DevTools
@@ -157,6 +173,7 @@ open coverage/lcov-report/index.html
 ```
 
 This shows:
+
 - Line-by-line coverage
 - Branch coverage
 - Uncovered lines highlighted
@@ -177,12 +194,14 @@ git push
 ## Common Test Issues
 
 ### Timeout Errors
+
 Increase jest timeout in test file:
 ```javascript
 jest.setTimeout(10000); // 10 seconds
 ```
 
 ### Mock Not Matching
+
 Check that mock setup matches the actual function call:
 ```javascript
 jest.mock('../ssh', () => ({
@@ -191,13 +210,16 @@ jest.mock('../ssh', () => ({
 ```
 
 ### Coverage Gap
+
 Run with `--verbose` to see which lines aren't covered, then:
+
 1. Add test case for that scenario
 2. Or document why it's not testable
 
 ## Continuous Integration
 
 Tests run on every:
+
 - **Push** — Local pre-push hook (lefthook)
 - **Pull Request** — GitHub Actions CI
 - **Pre-release** — Full test suite + coverage requirements

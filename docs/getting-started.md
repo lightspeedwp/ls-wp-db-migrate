@@ -93,7 +93,7 @@ wp search-replace 'https://staging.example.com' 'http://my-site.local'
 
 When you run the migration, here's what happens:
 
-```
+```text
 ╭──────────────────────────────────╮
 │ Stage 1: Export Database         │ ← Downloads from dev/staging
 ╰──────────────────────────────────╯

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "projectName": "wp-db-migrate",
+  "projectName": "ls-wp-db-migrate",
   "projectDescription": "WordPress database migration skill for Claude",
   "defaultModel": "claude-opus-5-5",
   "codeStyle": {
@@ -12,10 +12,11 @@
   "testing": {
     "framework": "jest",
     "coverage": {
-      "branches": 100,
-      "functions": 100,
-      "lines": 100,
-      "statements": 100
+      "branches": 34,
+      "functions": 46,
+      "lines": 45,
+      "statements": 45,
+      "note": "Floor at today's coverage of lib/ and api/; keep in step with package.json and raise it as tests are added."
     },
     "integration": {
       "framework": "bats",
@@ -30,12 +31,12 @@
     }
   },
   "git": {
-    "branchPrefix": "wp-db",
     "commitFormat": "conventional",
     "hooks": {
-      "preCommit": "npm run lint",
-      "prePush": "npm test"
-    }
+      "preCommit": "lefthook: prettier, markdownlint, jest, eslint, shellcheck",
+      "prePush": "lefthook: branch name check"
+    },
+    "branchPattern": "{type}/{scope}-{title}"
   },
   "permissions": {
     "allowedDomains": ["github.com", "api.github.com"],
@@ -46,24 +47,35 @@
     "location": "docs/",
     "readmeLocation": "README.md",
     "structure": {
-      "rootDocs": ["README.md", "CLAUDE.md", "AGENTS.md", "CHANGELOG.md"],
+      "rootDocs": ["README.md", "CLAUDE.md", "AGENTS.md", "SKILL.md"],
       "guidedFolders": {
         "docs": "Documentation and guides",
-        "skill": "Claude skill implementation",
-        "plugin": "Claude plugin manifest",
-        "tests": "Integration tests",
-        "__tests__": "Unit tests",
+        "sub-skills": "Stage sub-skills (preflight, prepare, import, verify, recover)",
+        "scripts": "Shell scripts the skill runs",
+        "lib": "Node helpers (sql-tool.cjs)",
+        "api": "Budgeted migration API",
+        "scripts/__tests__": "Jest tests",
+        "tests": "BATS integration tests",
+        "evals": "Eval cases",
+        "plugin": "Plugin manifest",
+        ".claude-plugin": "Claude plugin and marketplace manifests",
         "references": "External resources",
         "assets": "Media and templates"
       }
     }
   },
   "skills": {
-    "location": ".claude/skills",
-    "enabled": ["wp-db-migrate"]
+    "location": "sub-skills",
+    "enabled": [
+      "ls-wp-db-migrate-import",
+      "ls-wp-db-preflight",
+      "ls-wp-db-prepare",
+      "ls-wp-db-recover",
+      "ls-wp-db-verify"
+    ]
   },
   "agents": {
     "location": ".claude/agents",
-    "enabled": []
+    "enabled": ["wp-db-migrate-developer"]
   }
 }

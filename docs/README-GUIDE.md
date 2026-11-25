@@ -110,7 +110,7 @@ Welcome to the wp-db-migrate documentation. This guide helps you find what you n
 
 ## 📚 Documentation Structure
 
-```
+```text
 docs/
 ├── README-GUIDE.md (← you are here)
 │   └── Navigation & overview
@@ -152,7 +152,7 @@ docs/
 
 **Are you...**
 
-```
+```text
 ├─ New to this tool?
 │  └─ Read: Setup Requirements → TEAM-INSTALLATION.md → Getting Started
 │

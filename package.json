@@ -1,44 +1,45 @@
 {
-  "name": "wp-db-migrate",
+  "name": "ls-wp-db-migrate",
   "version": "1.1.0",
   "description": "WordPress database migration skill for MySQL→SQLite in WordPress Studio",
-  "main": "index.js",
   "engines": {
     "node": ">=24.0.0"
   },
   "scripts": {
+    "prepare": "lefthook install",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "test:verbose": "jest --verbose --coverage",
-    "test:bats": "bats tests/**/*.bats 2>/dev/null || echo '✓ No BATS tests yet'",
-    "test:all": "npm run test",
-    "lint:js": "eslint . --ext .js,.cjs,.mjs",
-    "lint:md": "markdownlint '**/*.md'",
-    "lint:yaml": "echo '✓ YAML linting via yamllint (install separately if needed)'",
-    "lint:all": "npm run lint:js && npm run lint:md",
-    "migrate:budget": "node api/migrate-with-budget.js"
+    "test:bats": "bats tests/*.bats",
+    "test:all": "npm run test && npm run test:bats",
+    "lint:js": "eslint .",
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules",
+    "lint:all": "npm run lint:js && npm run lint:md && npm run lint:sh",
+    "migrate:budget": "node api/migrate-with-budget.js",
+    "lint:sh": "shellcheck --severity=error scripts/*.sh"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.3"
   },
   "devDependencies": {
     "eslint": "^10.14.0",
-    "eslint-plugin-yml": "^3.9.0",
     "jest": "^29.7.0",
+    "lefthook": "^2.2.2",
     "markdownlint-cli": "^0.50.0",
     "prettier": "^3.9.10"
   },
   "jest": {
     "testEnvironment": "node",
     "collectCoverageFrom": [
-      "__tests__/**/*.test.js"
+      "lib/**/*.{js,cjs,mjs}",
+      "api/**/*.{js,cjs,mjs}"
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 80,
-        "functions": 80,
-        "lines": 80,
-        "statements": 80
+        "branches": 34,
+        "functions": 46,
+        "lines": 45,
+        "statements": 45
       }
     },
     "testMatch": [
@@ -54,5 +55,6 @@
     "mysql"
   ],
   "author": "Ash Shaw",
-  "license": "MIT"
+  "license": "GPL-3.0",
+  "private": true
 }

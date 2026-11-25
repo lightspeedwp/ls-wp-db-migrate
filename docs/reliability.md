@@ -4,7 +4,9 @@ Build confidence in your database migrations with automatic error detection, rec
 
 ## Overview
 
-Migration failures happen—network timeouts, disk space issues, table conflicts, memory limits. The reliability system automatically detects what went wrong and guides you to a solution, with recovery checkpoints at each stage so you're never left with a half-migrated database.
+Migration failures happen—network timeouts, disk space issues, table conflicts, memory limits. The
+reliability system automatically detects what went wrong and guides you to a solution, with recovery
+checkpoints at each stage so you're never left with a half-migrated database.
 
 ### What Gets Automatically Protected
 
@@ -181,7 +183,7 @@ After each stage completes, a checkpoint is created. If a later stage fails, rec
 
 Checkpoints are stored in your Studio site:
 
-```
+```text
 ~/Studio/my-site/.recovery/
 ├── recovery.log                    # All events logged here
 ├── checkpoint-export-TIMESTAMP
@@ -238,13 +240,13 @@ When a migration fails, an error report is automatically generated with diagnost
 
 Error reports are created at:
 
-```
+```text
 ~/.recovery/[timestamp]-error-report.txt
 ```
 
 ### Report Contents
 
-```
+```text
 # Migration Error Report
 Generated: 2026-10-30 14:25:30
 

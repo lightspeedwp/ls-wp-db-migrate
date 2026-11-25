@@ -18,14 +18,21 @@ pre-commit:
 
     - name: shellcheck
       glob: '*.sh'
-      run: shellcheck skill/scripts/*.sh || true
+      run: |
+        if ! command -v shellcheck >/dev/null 2>&1; then
+          echo "❌ shellcheck is not installed. Install it with: brew install shellcheck (macOS) or apt-get install shellcheck (Linux)"
+          exit 1
+        fi
+        shellcheck --severity=error {staged_files}
 
 pre-push:
   jobs:
     - name: validate branch name
       run: |
         BRANCH=$(git rev-parse --abbrev-ref HEAD)
-        if [[ ! $BRANCH =~ ^(wp-db-|main|master)$ ]]; then
-          echo "❌ Branch must start with 'wp-db-' or be main/master"
+        PATTERN='^(main|master|(dependabot|renovate)/.+|release/v?[0-9]+[.][0-9]+[.][0-9]+(-[a-z0-9]+)*|(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops|automation|epic)/[a-z0-9]+(-[a-z0-9]+)+)$'
+        if ! printf '%s\n' "$BRANCH" | grep -Eq "$PATTERN"; then
+          echo "❌ Branch name '$BRANCH' does not match: $PATTERN"
+          echo "   Use type/scope-title, for example fix/import-null-check."
           exit 1
         fi

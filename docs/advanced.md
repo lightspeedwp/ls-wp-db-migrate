@@ -91,7 +91,7 @@ Reduce file size by 70-80% for faster network transfers.
 
 ### Compression Performance
 
-```
+```text
 Database Size | Uncompressed | Compressed | Savings | Time
 --------------|--------------|-----------|---------|------
 100MB         | 100MB        | 25-30MB   | 70-75%  | 1s
@@ -136,7 +136,7 @@ Real-time visual feedback during migration.
 
 **Stage Headers:**
 
-```
+```text
 ╔════════════════════════════════════════╗
 ║  Stage 1: Export Database              ║
 ╚════════════════════════════════════════╝
@@ -144,7 +144,7 @@ Real-time visual feedback during migration.
 
 **Animated Spinner:**
 
-```
+```text
 ⠙ Exporting database...
 ⠹ Exporting database...
 ⠸ Exporting database...
@@ -152,13 +152,13 @@ Real-time visual feedback during migration.
 
 **Progress Bar:**
 
-```
+```text
 Importing: [████████░░░░░░░░░░░] 45%
 ```
 
 **Timing:**
 
-```
+```text
 ✓ Stage 1 complete (2m 15s elapsed)
 ```
 

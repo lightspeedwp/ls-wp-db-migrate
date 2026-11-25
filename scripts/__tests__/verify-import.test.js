@@ -48,7 +48,7 @@ describe('verify-import.sh', () => {
   test('should not hang on execution', () => {
     const sitePath = createMockStudioSite(tempDir);
     const startTime = Date.now();
-    const result = executeScript('verify-import.sh', [sitePath]);
+    executeScript('verify-import.sh', [sitePath]);
     const duration = Date.now() - startTime;
 
     // Should complete within 90 seconds (accounts for slow WP-CLI on various machines)

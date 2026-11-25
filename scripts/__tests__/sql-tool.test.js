@@ -94,8 +94,11 @@ COMMIT;
         try {
             result = siteUrls(input, { studioSite: site });
         } finally {
-            if (previous === undefined) delete process.env.STUDIO_CLI_CONFIG;
-            else process.env.STUDIO_CLI_CONFIG = previous;
+            if (previous === undefined) {
+                delete process.env.STUDIO_CLI_CONFIG;
+            } else {
+                process.env.STUDIO_CLI_CONFIG = previous;
+            }
         }
         const helper = path.join(__dirname, '..', 'studio-search-replace.php');
 

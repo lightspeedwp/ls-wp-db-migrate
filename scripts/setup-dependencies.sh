@@ -70,18 +70,18 @@ check_command() {
     echo -e "${GREEN}✓${NC} $name"
     [[ $VERBOSE == true ]] && echo "  └─ $(echo "$version" | head -1)"
     if [[ $required == "true" ]]; then
-      ((REQUIRED_FOUND++))
+      REQUIRED_FOUND=$((REQUIRED_FOUND + 1))
     else
-      ((OPTIONAL_FOUND++))
+      OPTIONAL_FOUND=$((OPTIONAL_FOUND + 1))
     fi
     return 0
   else
     if [[ $required == "true" ]]; then
       echo -e "${RED}✗${NC} $name ${RED}(REQUIRED)${NC}"
-      ((REQUIRED_MISSING++))
+      REQUIRED_MISSING=$((REQUIRED_MISSING + 1))
     else
       echo -e "${YELLOW}○${NC} $name ${YELLOW}(optional)${NC}"
-      ((OPTIONAL_MISSING++))
+      OPTIONAL_MISSING=$((OPTIONAL_MISSING + 1))
     fi
     return 1
   fi
@@ -122,11 +122,11 @@ echo -e "${BLUE}═════════════════════�
 
 if [[ -d "$HOME/Library/Application Support/WordPress Studio" ]] || command -v studio &>/dev/null; then
   echo -e "${GREEN}✓${NC} WordPress Studio"
-  ((REQUIRED_FOUND++))
+  REQUIRED_FOUND=$((REQUIRED_FOUND + 1))
 else
   echo -e "${RED}✗${NC} WordPress Studio ${RED}(REQUIRED)${NC}"
   echo -e "  ${YELLOW}Install from:${NC} https://developer.wordpress.com/studio/"
-  ((REQUIRED_MISSING++))
+  REQUIRED_MISSING=$((REQUIRED_MISSING + 1))
 fi
 
 echo ""
@@ -179,10 +179,10 @@ echo -e "${BLUE}═════════════════════�
 
 if [[ -d "/Applications/Visual Studio Code.app" ]] || command -v code &>/dev/null; then
   echo -e "${GREEN}✓${NC} Visual Studio Code"
-  ((OPTIONAL_FOUND++))
+  OPTIONAL_FOUND=$((OPTIONAL_FOUND + 1))
 else
   echo -e "${YELLOW}○${NC} Visual Studio Code ${YELLOW}(optional)${NC}"
-  ((OPTIONAL_MISSING++))
+  OPTIONAL_MISSING=$((OPTIONAL_MISSING + 1))
 fi
 
 echo ""

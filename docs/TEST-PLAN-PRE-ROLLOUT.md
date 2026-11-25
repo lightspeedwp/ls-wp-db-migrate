@@ -81,7 +81,7 @@ cd ~/.claude/skills/ls-wp-db-migrate
 
 **Expected output includes:**
 
-```
+```text
 ✓ Database Analysis
 ├─ Tables: 42 found
 ├─ Rows: 1.2M total
@@ -561,7 +561,7 @@ rm -rf ~/.claude/temp-test-databases/
 
 **Share with team lead after test:**
 
-```
+```text
 wp-db-migrate Pre-Rollout Test Results
 =====================================
 

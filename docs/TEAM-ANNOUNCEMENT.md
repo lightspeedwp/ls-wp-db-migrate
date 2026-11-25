@@ -8,7 +8,8 @@
 
 ## 📢 What's New
 
-We've released **wp-db-migrate** — a professional-grade WordPress database migration tool integrated into Claude. It lets you:
+We've released **wp-db-migrate** — a professional-grade WordPress database migration tool integrated
+into Claude. It lets you:
 
 ✅ **Clone production/staging databases to local WordPress Studio**  
 ✅ **Automatically reduce large databases** for faster local development  
@@ -47,7 +48,8 @@ You can also install as a Claude Plugin for easier access:
 4. Click Install
 5. Test with: `/wp-migrate-clone-to-studio --help`
 
-**Note:** The git repo at `~/.claude/skills/ls-wp-db-migrate/` is required regardless of plugin installation. CLI commands reference it.
+**Note:** The git repo at `~/.claude/skills/ls-wp-db-migrate/` is required regardless of plugin
+installation. CLI commands reference it.
 
 ### Step 3: Follow Onboarding Checklist
 
@@ -278,7 +280,7 @@ See: **[ls-hosting Integration Guide](ls-hosting-integration.md)** for complete 
 
 ### 2. The 5-Stage Workflow
 
-```
+```text
 Stage 1: Export Database
   └─ From MySQL/MariaDB (remote or local)
 
@@ -367,7 +369,8 @@ Full guide: **[Best Practices](best-practices.md)**
 
 ## 🧠 WordPress Agent Skills Available
 
-Your team now has **WordPress agent skills** installed globally at `~/.claude/skills/wordpress-agent/`. Use these when working on WordPress code:
+Your team now has **WordPress agent skills** installed globally at
+`~/.claude/skills/wordpress-agent/`. Use these when working on WordPress code:
 
 - **`/wp-plugin-development`** — Plugin architecture, hooks, security, settings API
 - **`/wp-block-development`** — Gutenberg blocks, block.json, deprecations

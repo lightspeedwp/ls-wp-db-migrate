@@ -162,7 +162,7 @@ _format_bytes() {
 
     while ((size > 1024 && unit_idx < 3)); do
         ((size /= 1024))
-        ((unit_idx++))
+        unit_idx=$((unit_idx + 1))
     done
 
     echo "$size ${units[$unit_idx]}"

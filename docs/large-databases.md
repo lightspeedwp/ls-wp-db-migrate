@@ -42,7 +42,7 @@ ssh user@staging.com "wp db export - " > staging-db.sql
 
 **Example output:**
 
-```
+```text
 Database Analysis:
   Total size: 2.3 GB
 
@@ -238,7 +238,7 @@ df -h ~/Studio
 **Starting size:** 5GB  
 **Goal:** 500MB local clone
 
-### Recommended approach:
+### Recommended approach
 
 ```bash
 # 1. Export from production (via ls-hosting-sync-live-to-staging)
@@ -348,7 +348,7 @@ wp plugin list
 
 1. **Always exclude logs/cache**
 
-   ```
+   ```text
    wp_actionscheduler_logs
    wp_cache
    wp_activity_log
@@ -356,30 +356,30 @@ wp plugin list
 
 2. **Use compression**
 
-   ```
+   ```text
    --compress  # Default, keeps it on
    ```
 
 3. **Use parallel processing**
 
-   ```
+   ```text
    --jobs 4    # or more depending on CPU
    ```
 
 4. **Dry-run first**
 
-   ```
+   ```text
    --dry-run   # See impact before committing
    ```
 
 5. **Verify after import**
 
-   ```
+   ```text
    ./verify-import.sh ~/Studio/my-project
    ```
 
 6. **Document your exclusions**
-   ```
+   ```text
    # Save successful config for future use
    cp production-minimal.conf ~/.wp-db-migrate-configs/
    ```
