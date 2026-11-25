@@ -143,12 +143,13 @@ npm run test:bats   # BATS integration tests pass
 ### Git Workflow
 ```json
 "git": {
-  "branchPrefix": "wp-db",
+  "branchPattern": "{type}/{scope}-{title}",
   "commitFormat": "conventional"
 }
 ```bash
 
-Branch names follow pattern: `wp-db-{feature-name}`
+Branch names follow the LightSpeed pattern `{type}/{scope}-{title}`, for example `fix/import-null-check`.
+The pre-push hook in `lefthook.yml` checks it.
 Commits follow convention: `type: description`
 
 ### Permissions

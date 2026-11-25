@@ -64,7 +64,7 @@ Test that it's working:
 
 **You should see:**
 
-```
+```text
 WordPress Database Migration Tool
 Usage: ./wp-migrate-clone-to-studio.sh --from URL --to PATH [OPTIONS]
 ...
@@ -113,7 +113,7 @@ echo "$HOME/.claude/plugins/marketplaces/lightspeedwp/wp-db-migrate"
 3. **Look for "Plugins" or "Integrations"**
 4. **Click "Add Plugin from GitHub"** or **"Install Plugin"**
 5. **Paste the GitHub URL:**
-   ```
+   ```text
    https://github.com/lightspeedwp/ls-wp-db-migrate
    ```
 6. **Follow the installation prompts**
@@ -123,7 +123,7 @@ echo "$HOME/.claude/plugins/marketplaces/lightspeedwp/wp-db-migrate"
 
 Once installed, use anywhere:
 
-```
+```text
 In any Claude chat:
 /wp-migrate-clone-to-studio --from https://example.com --to ~/Studio/site
 
@@ -348,7 +348,7 @@ Once installed and working:
 
 Copy this message to your team Slack/email:
 
-```
+```text
 The WordPress Database Migration tool (wp-db-migrate) is now available!
 
 Install in Claude Code by:

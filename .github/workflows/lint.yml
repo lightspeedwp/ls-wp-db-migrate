@@ -23,23 +23,19 @@ jobs:
         run: npm ci
 
       - name: Lint JavaScript
-        run: npm run lint 2>/dev/null || echo "ESLint not configured"
+        run: npm run lint:js && npm run lint:md
 
       - name: Install ShellCheck
         run: sudo apt-get install -y shellcheck
 
       - name: Lint shell scripts
-        run: |
-          for file in scripts/*.sh; do
-            echo "Checking $file"
-            shellcheck "$file" || true
-          done
+        run: shellcheck --severity=error scripts/*.sh
 
       - name: Check JSON files
         run: |
           for file in *.json .claude/*.json; do
             if [ -f "$file" ]; then
-              node -e "JSON.parse(require('fs').readFileSync('$file', 'utf8'))" && echo "✓ $file" || echo "✗ $file"
+              node -e "JSON.parse(require('fs').readFileSync('$file', 'utf8'))" && echo "✓ $file" || { echo "✗ $file"; exit 1; }
             fi
           done
 

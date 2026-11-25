@@ -185,7 +185,7 @@ Run the dependency verification script to check all requirements:
 
 **Output Example:**
 
-```
+```text
 ╔════════════════════════════════════════════════════════╗
 ║  WordPress Database Migration - Dependency Check      ║
 ║  Version 1.1.0                                        ║

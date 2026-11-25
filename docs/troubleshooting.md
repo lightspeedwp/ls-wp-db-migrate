@@ -2,7 +2,8 @@
 
 Diagnosis and solutions for common issues.
 
-> **Pro Tip:** Check the [Reliability & Error Recovery](reliability.md) guide for proactive strategies to prevent common failures before they happen. This guide helps you fix issues after they occur.
+> **Pro Tip:** Check the [Reliability & Error Recovery](reliability.md) guide for proactive strategies
+> to prevent common failures before they happen. This guide helps you fix issues after they occur.
 
 ## Error Messages
 
@@ -10,7 +11,7 @@ Diagnosis and solutions for common issues.
 
 **Error:**
 
-```
+```text
 Error: Studio path does not exist: ~/Studio/my-site
 ```
 
@@ -32,7 +33,7 @@ studio create my-site
 
 **Error:**
 
-```
+```text
 Error: SSH connection failed to host
 Connection timeout or permission denied
 ```
@@ -82,7 +83,7 @@ ssh user@host 'chmod +x wp-cli.phar && sudo mv wp-cli.phar /usr/local/bin/wp'
 
 **Error:**
 
-```
+```text
 Error: wp-cli is not installed on remote server
 ```
 
@@ -118,7 +119,7 @@ scp user@host:/tmp/export.sql /tmp/database.sql
 
 **Error:**
 
-```
+```text
 Error: Table wp_posts already exists
 Could not import database
 ```
@@ -142,7 +143,7 @@ studio create my-site
 
 **Error:**
 
-```
+```text
 Error: Could not execute statement on import
 SQL error in table import
 ```
@@ -272,7 +273,7 @@ watch -n 1 free -h
 
 **Error:**
 
-```
+```text
 Permission denied (publickey)
 ```
 
@@ -309,7 +310,7 @@ chmod 644 ~/.ssh/deploy_key.pub
 
 **Error:**
 
-```
+```text
 Connection timed out
 ```
 
@@ -429,7 +430,7 @@ wp search-replace 'staging.example.com' 'my-site.local' wp_posts,wp_postmeta,wp_
 
 **Error:**
 
-```
+```text
 Database integrity check failed
 Possible corruption detected
 ```
@@ -467,7 +468,7 @@ studio create my-site
 
 **Error:**
 
-```
+```text
 Expected 47 tables, found 42
 ```
 

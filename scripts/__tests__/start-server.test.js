@@ -42,7 +42,7 @@ describe('start-server.sh', () => {
   test('should not run indefinitely', () => {
     const sitePath = createMockStudioSite(tempDir);
     const startTime = Date.now();
-    const result = executeScript('start-server.sh', [sitePath]);
+    executeScript('start-server.sh', [sitePath]);
     const duration = Date.now() - startTime;
 
     // Should complete or timeout (but not hang forever)

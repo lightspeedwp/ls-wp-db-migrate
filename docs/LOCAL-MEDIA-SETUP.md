@@ -1,6 +1,7 @@
 # Local Media Path Configuration
 
-After migrating your database to WordPress Studio, you need to configure media paths locally. This guide covers the recommended approach for LightSpeed development.
+After migrating your database to WordPress Studio, you need to configure media paths locally. This
+guide covers the recommended approach for LightSpeed development.
 
 ## Problem: Media Files Are Huge
 
@@ -110,7 +111,7 @@ wp plugin install media-library-assistant --activate
 
 ## Setup Sequence for New Developers
 
-### After Migration Completes:
+### After Migration Completes
 
 1. **Add to wp-config.php** (5 min)
 

@@ -1,6 +1,7 @@
 # Integration with LightSpeed Hosting Skills
 
-Complete guide for integrating wp-db-migrate with LightSpeed hosting ecosystem for end-to-end production → local → staging workflows.
+Complete guide for integrating wp-db-migrate with LightSpeed hosting ecosystem for end-to-end
+production → local → staging workflows.
 
 ---
 

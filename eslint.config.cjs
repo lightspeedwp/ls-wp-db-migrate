@@ -23,17 +23,13 @@ module.exports = [
         process: 'readonly',
       },
     },
+    // Formatting (indentation, quotes, semicolons, commas) is left to Prettier.
     rules: {
       'no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       'no-console': 'off',
       'prefer-const': 'warn',
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],
-      semi: ['error', 'always'],
-      quotes: ['error', 'single', { avoidEscape: true }],
-      indent: ['error', 2],
-      'comma-dangle': ['error', 'always-multiline'],
-      'trailing-comma': 'off',
     },
   },
 ];

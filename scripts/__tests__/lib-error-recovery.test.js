@@ -17,7 +17,7 @@ describe('lib-error-recovery.sh — Error Recovery Library', () => {
     afterEach(() => {
         try {
             fs.rmSync(tmpDir, { recursive: true, force: true });
-        } catch (e) {
+        } catch {
             // Ignore cleanup errors
         }
     });

@@ -50,7 +50,7 @@ describe('replace-urls.sh', () => {
   test('should not hang on execution', () => {
     const sitePath = createMockStudioSite(tempDir);
     const startTime = Date.now();
-    const result = executeScript('replace-urls.sh', [
+    executeScript('replace-urls.sh', [
       sitePath,
       'https://old.com',
       'https://new.com',

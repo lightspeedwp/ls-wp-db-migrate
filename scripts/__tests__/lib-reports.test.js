@@ -17,7 +17,7 @@ describe('lib-reports.sh — Reports and Analytics Library', () => {
     afterEach(() => {
         try {
             fs.rmSync(tmpDir, { recursive: true, force: true });
-        } catch (e) {
+        } catch {
             // Ignore cleanup errors
         }
     });

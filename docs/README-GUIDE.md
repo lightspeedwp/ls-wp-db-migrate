@@ -110,7 +110,7 @@ Welcome to the wp-db-migrate documentation. This guide helps you find what you n
 
 ## 📚 Documentation Structure
 
-```
+```text
 docs/
 ├── README-GUIDE.md (← you are here)
 │   └── Navigation & overview
@@ -152,7 +152,7 @@ docs/
 
 **Are you...**
 
-```
+```text
 ├─ New to this tool?
 │  └─ Read: Setup Requirements → TEAM-INSTALLATION.md → Getting Started
 │
@@ -339,8 +339,8 @@ docs/
 
 ## 📊 Documentation Overview
 
-| Guide                                         | Focus           | Read Time | Best For             |
-| --------------------------------------------- | --------------- | --------- | -------------------- |
+| Guide                                       | Focus           | Read Time | Best For             |
+| ------------------------------------------- | --------------- | --------- | -------------------- |
 | [Setup Requirements](setup-requirements.md) | Dependencies    | 10 min    | Verify machine setup |
 | [Team Installation](TEAM-INSTALLATION.md)   | Installation    | 20 min    | Teams & CI/CD        |
 | [Getting Started](getting-started.md)       | Basics          | 5 min     | First migration      |

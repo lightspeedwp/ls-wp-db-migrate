@@ -108,7 +108,7 @@ This runs the full test suite (should take 1–2 minutes).
 
 **Expected output:**
 
-```
+```text
 Test Suites: 15 passed, 15 total
 Tests:       192 passed, 192 total
 ```
@@ -241,7 +241,7 @@ If your team uses the Claude Skill or Plugin:
 
 **Or for Plugin:**
 
-```
+```text
 # In Claude → Settings → Plugins
 # Add from GitHub: https://github.com/lightspeedwp/ls-wp-db-migrate
 ```
