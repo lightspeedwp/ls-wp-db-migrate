@@ -36,9 +36,17 @@ teardown() {
 }
 
 # Test: preflight-check produces output
-@test "preflight-check.sh produces check output" {
-  output=$("$SCRIPT_DIR/preflight-check.sh" 2>&1)
-  [[ $output == *"Check"* ]] || [[ $output == *"check"* ]] || [[ $output == *"bash"* ]]
+@test "preflight-check.sh runs every check and reports the result" {
+  # Exits 1 when a dependency (Studio CLI, WP-CLI) is missing, as on CI runners.
+  run "$SCRIPT_DIR/preflight-check.sh"
+  [[ $output == *"Required Commands"* ]]
+  [[ $output == *"Optional (but recommended)"* ]]
+  if [ "$status" -eq 0 ]; then
+    [[ $output == *"All checks passed"* ]]
+  else
+    [ "$status" -eq 1 ]
+    [[ $output == *"check(s) failed"* ]]
+  fi
 }
 
 # Test: migrate-recovery script exists
