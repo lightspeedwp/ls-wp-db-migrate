@@ -11,24 +11,6 @@ pull_request_rules:
         commit_message: title+body
         delete_head_branch: true
 
-  - name: Automatic merge for test-only changes on develop (with review)
-    conditions:
-      - check-success=Tests
-      - check-success=Lint & Format
-      - -files~=^(?!(__tests__|tests)/)
-      - "#approved-reviews-by>=1"
-      - "#changes-requested-reviews-by=0"
-      - base=develop
-      - -draft
-      - "-locked"
-      - "-label=blocked"
-      - "-label=wip"
-    actions:
-      merge:
-        method: squash
-        commit_message: title+body
-        delete_head_branch: true
-
   - name: Auto-merge approved PRs with all checks passing (main branch)
     conditions:
       - check-success=Tests
@@ -40,23 +22,6 @@ pull_request_rules:
       - "-label=blocked"
       - "-label=wip"
       - base=main
-    actions:
-      merge:
-        method: squash
-        commit_message: title+body
-        delete_head_branch: true
-
-  - name: Automatic merge for develop branch PRs (with review)
-    conditions:
-      - check-success=Tests
-      - check-success=Lint & Format
-      - "#approved-reviews-by>=1"
-      - "#changes-requested-reviews-by=0"
-      - "-draft"
-      - "-locked"
-      - "-label=blocked"
-      - "-label=wip"
-      - base=develop
     actions:
       merge:
         method: squash
