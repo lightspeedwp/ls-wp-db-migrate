@@ -25,10 +25,8 @@ Configuration and workflows for GitHub-specific features.
 Automated PR merge rules based on status checks and conditions.
 
 **What it does:**
-- Auto-merges approved PRs when all checks pass (main branch)
-- Auto-merges PRs with single approval on develop branch
-- Auto-merges documentation-only PRs
-- Auto-merges test-only PRs without review
+- Auto-merges approved PRs into `main` when all checks pass
+- Auto-merges documentation-only PRs from Dependabot
 - Requests review if PR has conflicts
 - Auto-updates branch when out of date (with `auto-merge` label)
 - Dismisses reviews when new commits are pushed
@@ -40,15 +38,13 @@ Automated PR merge rules based on status checks and conditions.
 - **Commit message:** Uses PR title + body
 
 **Rules:**
-1. **Documentation updates** — Auto-merge if dependabot or documentation changes
-2. **Test updates** — Auto-merge if only tests change
-3. **Approved PRs (main)** — Auto-merge with 1 approval + all checks passing
-4. **Approve PRs (develop)** — Auto-merge with 1 approval on develop branch
-5. **Conflict detection** — Requests review if conflicts exist
-6. **Stale drafts** — Closes after 30 days of inactivity
+1. **Documentation updates** — Auto-merge Dependabot PRs that only change documentation
+2. **Approved PRs (main)** — Auto-merge with 1 approval + all checks passing
+3. **Conflict detection** — Requests review if conflicts exist
+4. **Stale drafts** — Closes after 30 days of inactivity
 
 **Enabling auto-merge for a PR:**
-- PR must be on `main` or `develop` branch
+- PR must target `main`
 - All checks must pass (Tests, Lint & Format)
 - At least 1 approval required (except docs-only changes)
 - Add `auto-merge` label to auto-update branch if out of date
@@ -88,7 +84,7 @@ Standardizes PR descriptions and ensures quality checks.
 #### test.yml
 Runs Jest and BATS tests on multiple Node versions and operating systems.
 
-**Triggers:** Push to main/develop, PRs to main/develop
+**Triggers:** Push to main, PRs to main
 
 **What it does:**
 1. Installs Node.js (18.x, 20.x)
@@ -105,7 +101,7 @@ Runs Jest and BATS tests on multiple Node versions and operating systems.
 #### lint.yml
 Checks code quality and formatting.
 
-**Triggers:** Push to main/develop, PRs to main/develop
+**Triggers:** Push to main, PRs to main
 
 **What it does:**
 1. Runs ESLint (if configured)
@@ -128,7 +124,7 @@ name: My Workflow
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
 
 jobs:
   my-job:
@@ -204,27 +200,12 @@ author: dependabot[bot]
 ```
 Auto-merges PRs from Dependabot that only modify documentation. Restricted to dependabot to prevent abuse.
 
-**Rule 2: Test Updates (Develop Branch Only)**
-```yaml
--files~=^(?!(__tests__|tests)/)  # Ensures ONLY test changes
-"#approved-reviews-by>=1"        # Requires 1 approval
-base=develop                      # Only on develop, not main
-```
-Auto-merges test-only PRs on develop branch after human review. Main branch requires approval (see Rule 3).
-
-**Rule 3: Approved PRs (main branch)**
+**Rule 2: Approved PRs (main branch)**
 ```yaml
 "#approved-reviews-by>=1"
 base=main
 ```
 Auto-merges when PR has at least 1 approval and all checks pass.
-
-**Rule 4: Approved PRs (develop branch)**
-```yaml
-"#approved-reviews-by>=1"
-base=develop
-```
-Auto-merges on develop with 1 approval (faster development iteration).
 
 ### Labels for Mergify Control
 
@@ -298,7 +279,7 @@ Edit `.github/mergify.yml` to change behavior:
 **PR not merging:**
 1. Check that all required checks pass (Tests, Lint & Format)
 2. Verify branch is not `draft`
-3. Check PR is on approved branch (main or develop)
+3. Check the PR targets `main`
 4. Ensure no `blocked` label
 5. Click Mergify check to see detailed reason
 

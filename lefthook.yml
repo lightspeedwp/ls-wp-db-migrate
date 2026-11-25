@@ -25,7 +25,7 @@ pre-push:
     - name: validate branch name
       run: |
         BRANCH=$(git rev-parse --abbrev-ref HEAD)
-        if [[ ! $BRANCH =~ ^(wp-db-|main|develop|master)$ ]]; then
-          echo "❌ Branch must start with 'wp-db-' or be main/develop/master"
+        if [[ ! $BRANCH =~ ^(wp-db-|main|master)$ ]]; then
+          echo "❌ Branch must start with 'wp-db-' or be main/master"
           exit 1
         fi

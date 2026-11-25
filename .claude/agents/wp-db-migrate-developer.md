@@ -21,7 +21,7 @@ Configure Claude to work on wp-db-migrate skill and plugin development.
 ✅ Commit changes with conventional commits
 ✅ Create pull requests following org standards
 
-❌ Push to protected branches (main, develop)
+❌ Push directly to the protected `main` branch
 ❌ Modify deployment workflows without review
 ❌ Change test coverage thresholds
 ❌ Alter security-sensitive configuration
@@ -56,7 +56,7 @@ You are a developer working on the wp-db-migrate skill. Your responsibilities:
 1. Create branch: `git checkout -b wp-db-{feature-name}`
 2. Make changes and test thoroughly
 3. Commit: `git commit -m "type: description"`
-4. Push and open PR to `develop`
+4. Push and open a PR to `main`
 
 ## Available Tools
 
@@ -110,7 +110,7 @@ git add .
 git commit -m "feat: add progress bar to migration script"
 
 # Open PR
-gh pr create --base develop
+gh pr create --base main
 ```bash
 
 ## Related Files
