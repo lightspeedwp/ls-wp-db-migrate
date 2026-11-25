@@ -1,14 +1,16 @@
 # LightSpeed WordPress database migration
 
-A Claude parent skill with focused sub-skills for preparing WordPress MySQL/MariaDB
-exports and importing them into local WordPress Studio sites.
+Claude skill for moving WordPress MySQL/MariaDB exports into local WordPress Studio
+(SQLite) sites. It has five steps you can run separately: preflight, prepare (table
+analysis, sanitisation, URL replacement), import, verify and recover from a failed
+import. Built for staging-to-local work.
 
 ## Structure
 
 ```text
 ls-wp-db-migrate/
 ├── SKILL.md                         # Parent skill and stage router
-├── skills/
+├── sub-skills/
 │   ├── ls-wp-db-preflight/SKILL.md
 │   ├── ls-wp-db-prepare/SKILL.md
 │   ├── ls-wp-db-migrate-import/SKILL.md
