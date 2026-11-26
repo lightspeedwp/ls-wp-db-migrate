@@ -42,6 +42,16 @@ writes these at the end of a dump, for example WooCommerce's `wc_download_log`)
 are always removed, because SQLite cannot add them to an existing table and
 Studio rolls back the whole import. The report lists each as a `foreign-key` edit.
 
+MariaDB-only table options (`PAGE_COMPRESSED`, `PAGE_COMPRESSION_LEVEL`,
+`ENCRYPTED`, `ENCRYPTION_KEY_ID`, `PAGE_CHECKSUM`, `TRANSACTIONAL`) are also
+always removed, because Studio's SQLite driver cannot parse them. They only
+change how MariaDB stores the table. The report lists each as a `table-option` edit.
+
+An `integer-too-large` finding means a `bigint unsigned` column holds a value
+above 9223372036854775807, which SQLite cannot store; Studio stops the import at
+that INSERT. Do not edit the values. Ask the user whether to leave the table out
+with `--exclude`, and report it as a blocking finding until they decide.
+
 Record the input hash, output path, edits, excluded tables and unresolved findings
 from the tool's report. Sanitisation does not anonymise personal/customer data.
 Continue to [migrate](../ls-wp-db-migrate-import/SKILL.md) only if import is requested.
