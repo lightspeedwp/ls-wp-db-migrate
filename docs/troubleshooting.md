@@ -154,8 +154,12 @@ SQL error in table import
 2. Parallel jobs too high (memory issue)
 3. Corrupted database export
 4. Incompatible SQLite schema, such as
-   `ALTER TABLE ... ADD CONSTRAINT ... FOREIGN KEY` (run the export through
-   `node lib/sql-tool.cjs sanitise`, which removes these)
+   `ALTER TABLE ... ADD CONSTRAINT ... FOREIGN KEY` or MariaDB table options
+   like `PAGE_COMPRESSED='ON'` ("Failed to parse the MySQL query"). Run the
+   export through `node lib/sql-tool.cjs sanitise`, which removes these.
+5. A `bigint unsigned` value above 9223372036854775807 ("cannot store REAL
+   value in INTEGER column"). SQLite cannot hold it; `sanitise` reports it as
+   an `integer-too-large` finding naming the table and column.
 
 **Solutions:**
 

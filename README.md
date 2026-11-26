@@ -52,6 +52,13 @@ Migration instructions start at [SKILL.md](SKILL.md). The bundled SQL tool runs 
 before importing. Legacy helpers have incomplete workflows: recovery helpers do not
 import, and the clone orchestrator is not the local-file import path.
 
+`sql-tool.cjs` owns the Studio and MariaDB/MySQL repair rules for both directions;
+other skills (such as the ls-hosting tools) call it rather than keeping their own
+copy. `sanitise` prepares a MySQL or MariaDB dump for Studio. `preflight` checks a
+Studio export before it goes to MySQL, and `preflight --out <path>` also writes a
+copy with Studio's unquoted numbers in text columns quoted again (Studio writes
+`'007'` as `007`, which MySQL stores as `7`).
+
 Existing detailed guides in `docs/` may describe older CLI versions; prefer installed
 CLI help and the maintained skill instructions when they disagree. No live migration
 is required to install or validate the skill.
